@@ -88,9 +88,8 @@ const page = () => {
               <h2 className="text-xl font-bold text-gray-800 mb-1">
                 {es.location}
               </h2>
-              {/* You could add a small button or link here, e.g., */}
               <Link
-                href={`/estates/${es.id}`} // Assuming you have an ID
+                href={`/estates/${es.id}`}
                 className="
         text-sm font-semibold text-green-600 hover:text-green-700 
         flex items-center space-x-1 mt-2 transition-colors
