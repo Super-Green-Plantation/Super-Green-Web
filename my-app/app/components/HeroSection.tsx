@@ -7,10 +7,9 @@ import { ArrowBigRight, ChevronRight, Mail } from 'lucide-react';
 // For this example, I'll use simple SVGs represented by placeholder functions.
 
 // Placeholder for icons (Replace with actual react-icons like FaLeaf, FaHandshake, etc., or Image components)
-const IconSustainable = () => <div className="text-3xl text-green-600">🌿</div>;
-const IconQuality = () => <div className="text-3xl text-green-600">🌱</div>;
-const IconCommunity = () => <div className="text-3xl text-green-600">🤝</div>;
-const IconContact = () => <div className="text-lg">✉️</div>; // Placeholder for Contact Icon
+const IconSustainable = () => <div className="text-3xl text-green-600"><Image width={30} alt='feature icon' height={30} src={'/Group 1.png'}/></div>;
+const IconQuality = () => <div className="text-3xl text-green-600"><Image width={30} alt='feature icon' height={30} src={'/Group 2.png'}/></div>;
+const IconCommunity = () => <div className="text-3xl text-green-600"><Image width={30} alt='feature icon' height={30} src={'/Group 3.png'}/></div>;
 
 // --- Feature Card Data ---
 const featureCards = [
@@ -29,7 +28,7 @@ const featureCards = [
   { 
     icon: IconCommunity, 
     title: 'Community Impact', 
-    description: 'Community impact crambercommunities to support cato shamu and our chunctity.', 
+    description: 'Community impact to support cato shamu and our chunctity.', 
     bgColor: 'bg-white' 
   },
 ];
@@ -103,7 +102,7 @@ export default function HeroSection() {
 
             {/* Get Started Button (Prominent Green) */}
             <Link 
-              href="/get-started" 
+              href="/register" 
               className="
                 py-3 px-8 rounded-lg bg-green-600 text-white font-bold 
                 hover:bg-green-700 transition-colors duration-300 
@@ -119,15 +118,15 @@ export default function HeroSection() {
         {/* --- RIGHT SIDE: Feature Cards --- */}
         <div className="md:col-span-1 flex flex-col items-end space-y-6 mt-10 md:mt-0">
           {/* Use specific positioning to mimic the staggered look */}
-          <div className="self-start md:self-auto">
+          <div className="self-start md:self-auto md:mr-20">
             <FeatureCard {...featureCards[0]} />
           </div>
           
-          <div className="md:pl-10">
+          <div className="md:ml-20">
             <FeatureCard {...featureCards[1]} />
           </div>
 
-          <div className="self-start md:self-auto">
+          <div className="self-start md:self-auto md:mr-20">
             <FeatureCard {...featureCards[2]} />
           </div>
         </div>
