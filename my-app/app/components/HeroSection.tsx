@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowBigRight, ChevronRight, Mail } from 'lucide-react';
+import { ChevronRight, Mail } from 'lucide-react';
 // Import necessary icons (e.g., from react-icons if installed, or use SVGs/images)
 // For this example, I'll use simple SVGs represented by placeholder functions.
 
@@ -70,14 +70,14 @@ export default function HeroSection() {
       </div>
 
       {/* Dark Overlay for Text Readability (optional, but helps with contrast) */}
-      <div className="absolute inset-0 bg-black opacity-30 z-10"></div>
+      <div className="absolute inset-0 bg-black opacity-30 z-5"></div>
       
       {/* Content Layer */}
-      <div className="relative z-20 w-[90%] max-w-6xl mx-auto py-20 md:py-32 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+      <div className="relative z-10 w-[90%] max-w-6xl mx-auto py-20 md:py-32 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
         
         {/* --- LEFT SIDE: Main Heading and CTAs --- */}
         <div className="md:col-span-2 text-white space-y-6">
-          <h1 className="text-6xl md:text-7xl font-extrabold leading-tight ]">
+          <h1 className="text-6xl md:text-7xl font-extrabold leading-tight">
             Growing Quality. <br/>Cultivating Trust.
           </h1>
           <p className="text-lg md:text-xl font-medium ">
@@ -118,15 +118,15 @@ export default function HeroSection() {
         {/* --- RIGHT SIDE: Feature Cards --- */}
         <div className="md:col-span-1 flex flex-col items-end space-y-6 mt-10 md:mt-0">
           {/* Use specific positioning to mimic the staggered look */}
-          <div className="self-start md:self-auto md:mr-20">
+          <div className="self-start md:self-auto md:mr-20 transition-all duration-300 hover:shadow-2xl">
             <FeatureCard {...featureCards[0]} />
           </div>
           
-          <div className="md:ml-20">
+          <div className="md:ml-20 transition-all duration-300 hover:shadow-2xl">
             <FeatureCard {...featureCards[1]} />
           </div>
 
-          <div className="self-start md:self-auto md:mr-20">
+          <div className="self-start md:self-auto md:mr-20 transition-all duration-300 hover:shadow-2xl ">
             <FeatureCard {...featureCards[2]} />
           </div>
         </div>

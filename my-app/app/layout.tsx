@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 export const metadata: Metadata = {
   title: "Super Green Plantation",
@@ -14,9 +15,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="flex flex-col min-h-screen">
         <NavBar/>
-        {children}
+        <main className="pt-14 grow ">
+          {children}
+        </main>
+
+        <footer>
+          <Footer/>
+        </footer>
       </body>
     </html>
   );

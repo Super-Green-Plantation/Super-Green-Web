@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react'; // Import useState hook
+import { useState } from 'react';
 
 // Utility component for the hamburger icon lines
 const HamburgerLine = () => (
@@ -18,25 +18,17 @@ const navItems = [
 ];
 
 export default function NavBar() {
-  const [isOpen, setIsOpen] = useState(false); // State to manage mobile menu visibility
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    // OUTER WRAPPER: This container stretches to full width (`w-full`) 
-    // and applies the background, shadow, and rounded corners.
-    <div className="
-      w-full p-2 md:p-3
-      bg-gradient-to-r from-green-700/70 to-green-800/70 
-      shadow-2xl shadow-black/60 backdrop-blur-md relative
-    ">
+    <div className="w-full p-2 md:p-3 bg-linear-to-r from-green-700/70 to-green-800/70 shadow-2xl shadow-black/60 backdrop-blur-md fixed top-0 left-0 right-0 z-[100]">
         
-        {/* INNER CONTAINER: This centers the content and restricts its width (`max-w-6xl`) */}
         <nav className="w-full max-w-6xl mx-auto">
       
-            {/* Primary Row: Logo and Toggle Button (Mobile) or Links/Buttons (Desktop) */}
             <div className="flex justify-between items-center">
                 
                 {/* Logo and Brand Name */}
@@ -48,31 +40,26 @@ export default function NavBar() {
                         height={40} 
                         className="rounded-md"
                     />
-                    <span className="
-                        text-white text-lg font-semibold 
-                    ">
+                    <span className="text-white text-lg font-semibold">
                         Super Green Plantation
                     </span>
                 </Link>
 
-                {/* --- DESKTOP VIEW (md screen size and up) --- */}
-                <div className="hidden md:flex items-center space-x-6">
+                {/* Desktop Navigation */}
+                <div className="hidden md:flex items-center space-x-10">
                     {navItems.map((item) => (
                         <Link 
                             key={item.name} 
                             href={item.href} 
-                            className="
-                                text-white text-sm font-medium hover:text-gray-200 
-                                transition duration-200 
-                            "
+                            className="text-white text-sm font-medium hover:text-gray-200 transition duration-200"
                         >
                             {item.name}
                         </Link>
                     ))}
                 </div>
                 
+                {/* Desktop Action Buttons */}
                 <div className="hidden md:flex space-x-3">
-                    {/* Action Buttons (Desktop) */}
                     <Link 
                         href="/contact" 
                         className="py-2 px-4 rounded-lg text-black font-bold text-sm bg-[#f5e07e] hover:bg-[#e6c96a] shadow-md shadow-black/40"
@@ -87,63 +74,56 @@ export default function NavBar() {
                     </Link>
                 </div>
 
-                {/* --- MOBILE TOGGLE BUTTON (Below md screen size) --- */}
+                {/* Mobile Toggle Button */}
                 <button 
                     onClick={toggleMenu} 
-                    className="md:hidden flex flex-col justify-around w-6 h-6 z-50 focus:outline-none p-1"
+                    className="md:hidden flex flex-col justify-around w-6 h-6 focus:outline-none p-1"
                     aria-label="Toggle Menu"
                 >
-                    {/* Hamburger Icon */}
                     <HamburgerLine />
                     <HamburgerLine />
                     <HamburgerLine />
                 </button>
             </div>
+        </nav>
+        
+        {/* Mobile Menu */}
+        {isOpen && (
+        <div className="md:hidden absolute top-full left-0 right-0 bg-green-800/95 shadow-xl backdrop-blur-sm py-4">
+            <div className="flex flex-col items-center space-y-3 px-4">
+                
+                {/* Mobile Nav Links */}
+                {navItems.map((item) => (
+                    <Link 
+                        key={item.name} 
+                        href={item.href} 
+                        className="w-full text-center py-2 text-white font-medium hover:bg-green-700/50 rounded-md transition duration-200"
+                        onClick={toggleMenu}
+                    >
+                        {item.name}
+                    </Link>
+                ))}
 
-            {/* --- MOBILE MENU LINKS (Visible only when 'isOpen' is true) --- */}
-            <div className={`
-                md:hidden absolute top-full left-0 w-full rounded-b-xl 
-                bg-green-800/90 shadow-lg z-40 
-                transition-all duration-300 ease-in-out
-                ${isOpen ? 'max-h-96 opacity-100 py-3' : 'max-h-0 opacity-0 overflow-hidden'}
-            `}>
-                <div className="flex flex-col items-center space-y-3 px-4">
-                    
-                    {/* Mobile Nav Links */}
-                    {navItems.map((item) => (
-                        <Link 
-                            key={item.name} 
-                            href={item.href} 
-                            className="
-                                w-full text-center py-2 text-white font-medium hover:bg-green-700/50 
-                                rounded-md transition duration-200
-                            "
-                            onClick={toggleMenu} // Close menu on click
-                        >
-                            {item.name}
-                        </Link>
-                    ))}
-
-                    {/* Mobile Action Buttons (Displayed vertically) */}
-                    <div className="w-full pt-3 border-t border-green-700/50 flex flex-col space-y-3">
-                        <Link 
-                            href="/contact" 
-                            className="w-full text-center py-2 rounded-lg text-black font-bold bg-[#f5e07e] hover:bg-[#e6c96a] shadow-md"
-                            onClick={toggleMenu}
-                        >
-                            Contact
-                        </Link>
-                        <Link 
-                            href="/register" 
-                            className="w-full text-center py-2 rounded-lg text-white font-bold bg-green-600 hover:bg-green-700 shadow-md"
-                            onClick={toggleMenu}
-                        >
-                            Register
-                        </Link>
-                    </div>
+                {/* Mobile Action Buttons */}
+                <div className="w-full pt-3 border-t border-green-700/50 flex flex-col space-y-3">
+                    <Link 
+                        href="/contact" 
+                        className="w-full text-center py-2 rounded-lg text-black font-bold bg-[#f5e07e] hover:bg-[#e6c96a] shadow-md"
+                        onClick={toggleMenu}
+                    >
+                        Contact
+                    </Link>
+                    <Link 
+                        href="/register" 
+                        className="w-full text-center py-2 rounded-lg text-white font-bold bg-green-600 hover:bg-green-700 shadow-md"
+                        onClick={toggleMenu}
+                    >
+                        Register
+                    </Link>
                 </div>
             </div>
-        </nav>
+        </div>
+        )}
     </div>
   );
 }
