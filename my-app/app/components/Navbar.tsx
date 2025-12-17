@@ -12,9 +12,10 @@ const HamburgerLine = () => (
 const LOGO_PATH = '/logo.png'; 
 const navItems = [
   { name: 'Home', href: '/' },
-  { name: 'Micro Loans', href: '/micro-loans' },
+//   { name: 'Micro Loans', href: '/micro-loans' },
   { name: 'Estates', href: '/estates' },
   { name: 'About us', href: '/about-us' },
+  { name: 'Contact us', href: '/contact' },
 ];
 
 export default function NavBar() {
@@ -60,12 +61,7 @@ export default function NavBar() {
                 
                 {/* Desktop Action Buttons */}
                 <div className="hidden md:flex space-x-3">
-                    <Link 
-                        href="/contact" 
-                        className="py-2 px-4 rounded-lg text-black font-bold text-sm bg-[#f5e07e] hover:bg-[#e6c96a] shadow-md shadow-black/40"
-                    >
-                        Contact
-                    </Link>
+                   
                     <Link 
                         href="/register" 
                         className="py-2 px-4 rounded-lg text-white font-bold text-sm bg-green-600 hover:bg-green-700 shadow-md shadow-black/40"
@@ -106,13 +102,7 @@ export default function NavBar() {
 
                 {/* Mobile Action Buttons */}
                 <div className="w-full pt-3 border-t border-green-700/50 flex flex-col space-y-3">
-                    <Link 
-                        href="/contact" 
-                        className="w-full text-center py-2 rounded-lg text-black font-bold bg-[#f5e07e] hover:bg-[#e6c96a] shadow-md"
-                        onClick={toggleMenu}
-                    >
-                        Contact
-                    </Link>
+                    
                     <Link 
                         href="/register" 
                         className="w-full text-center py-2 rounded-lg text-white font-bold bg-green-600 hover:bg-green-700 shadow-md"

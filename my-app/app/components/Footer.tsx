@@ -100,7 +100,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* --- Copyright/Divider (Optional) --- */}
+        {/* --- Copyright/Divider  --- */}
         <div className="pt-8 mt-12 border-t border-gray-200 text-center">
           <p className="text-sm text-gray-500">
             &copy; {new Date().getFullYear()} Super Green Plantation. All rights reserved.

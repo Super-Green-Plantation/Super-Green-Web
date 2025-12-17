@@ -1,12 +1,8 @@
-// components/HeroSection.js
-
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronRight, Mail } from 'lucide-react';
-// Import necessary icons (e.g., from react-icons if installed, or use SVGs/images)
-// For this example, I'll use simple SVGs represented by placeholder functions.
 
-// Placeholder for icons (Replace with actual react-icons like FaLeaf, FaHandshake, etc., or Image components)
+
 const IconSustainable = () => <div className="text-3xl text-green-600"><Image width={30} alt='feature icon' height={30} src={'/Group 1.png'}/></div>;
 const IconQuality = () => <div className="text-3xl text-green-600"><Image width={30} alt='feature icon' height={30} src={'/Group 2.png'}/></div>;
 const IconCommunity = () => <div className="text-3xl text-green-600"><Image width={30} alt='feature icon' height={30} src={'/Group 3.png'}/></div>;
@@ -89,7 +85,7 @@ export default function HeroSection() {
             
             {/* Contact Us Button */}
             <Link 
-              href="/contact-us" 
+              href="/contact" 
               className="
                 flex items-center justify-center space-x-2 py-3 px-8 rounded-lg 
                 bg-transparent border-2 border-white text-white font-bold 

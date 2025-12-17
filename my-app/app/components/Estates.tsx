@@ -33,7 +33,7 @@ const Estates = () => {
 
         {/* --- IMAGE GALLERY --- */}
         {/* Outer Container for the grid, applying shadow and corner radius */}
-        <div className="w-full rounded-3xl bg-white p-4 md:p-6">
+        <div className="w-full rounded-3xl  p-4 md:p-6">
           
           {/* Main Grid Layout: Divides the space (60% / 40%) */}
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
