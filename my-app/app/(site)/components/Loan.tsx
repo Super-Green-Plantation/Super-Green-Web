@@ -6,7 +6,7 @@ const Loan = () => {
     const IMG = "/ml bg.png"
   return (
     <div>
-      <section className="py-16 md:py-24 bg-white flex flex-col items-center">
+      <section className="w-[90%] mx-auto py-16 md:py-24 bg-white flex flex-col items-center">
         
         {/* --- Micro Loan Container (Matches Hero/Estates alignment) --- */}
         <div className="w-full max-w-6xl mx-auto px-4 md:px-0">
@@ -40,7 +40,7 @@ const Loan = () => {
               
               {/* Link button styling matching Navbar/Investments */}
               <Link 
-                href="/micro-loans"
+                href="/#" //micro-loans
                 className="
                   inline-block bg-green-600 py-3 px-8 rounded-lg text-white font-semibold 
                   hover:bg-green-700 transition-colors duration-200 shadow-lg

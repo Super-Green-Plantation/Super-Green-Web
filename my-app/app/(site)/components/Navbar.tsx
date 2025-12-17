@@ -63,7 +63,7 @@ export default function NavBar() {
                 <div className="hidden md:flex space-x-3">
                    
                     <Link 
-                        href="/register" 
+                        href="/auth/register" 
                         className="py-2 px-4 rounded-lg text-white font-bold text-sm bg-green-600 hover:bg-green-700 shadow-md shadow-black/40"
                     >
                         Register
@@ -104,7 +104,7 @@ export default function NavBar() {
                 <div className="w-full pt-3 border-t border-green-700/50 flex flex-col space-y-3">
                     
                     <Link 
-                        href="/register" 
+                        href="/auth/register" 
                         className="w-full text-center py-2 rounded-lg text-white font-bold bg-green-600 hover:bg-green-700 shadow-md"
                         onClick={toggleMenu}
                     >

@@ -1,7 +1,6 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import "./globals.css";
-import NavBar from "./components/Navbar";
-import Footer from "./components/Footer";
+
 
 export const metadata: Metadata = {
   title: "Super Green Plantation",
@@ -10,21 +9,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className="flex flex-col min-h-screen">
-        <NavBar/>
-        <main className="pt-14 grow ">
-          {children}
-        </main>
-
-        <footer>
-          <Footer/>
-        </footer>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
