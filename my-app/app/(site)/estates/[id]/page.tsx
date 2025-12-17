@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { estates } from '../estateData'; 
+import Image from "next/image";
+import Link from "next/link";
+import { estates } from "../estateData";
 
 interface DetailBoxProps {
   label: string;
@@ -14,18 +14,25 @@ const DetailBox: React.FC<DetailBoxProps> = ({ label, value }) => (
   </div>
 );
 
-export default function EstateDetailsPage({ params }: { params: { id: string } }) {
-  const id = parseInt(params.id);
-  console.log("ID →", params.id);
+export default function EstateDetailsPage({params}: { params: { id: string };
+}) {
+  const id = Number(params.id);
 
-  const estateDetails = estates.find(es => es.id === id);
+  const estateDetails = estates.find((es) => es.id === id);
 
   if (!estateDetails) {
     return (
       <div className="text-center py-20">
-        <h1 className="text-3xl font-bold text-red-600">404 - Estate Not Found</h1>
-        <p className="mt-4">The requested estate with ID: {params.id} does not exist.</p>
-        <Link href="/" className="text-green-600 hover:text-green-700 mt-2 block">
+        <h1 className="text-3xl font-bold text-red-600">
+          404 - Estate Not Found
+        </h1>
+        <p className="mt-4">
+          The requested estate with ID: {params.id} does not exist.
+        </p>
+        <Link
+          href="/"
+          className="text-green-600 hover:text-green-700 mt-2 block"
+        >
           Go back to Home
         </Link>
       </div>
@@ -51,17 +58,31 @@ export default function EstateDetailsPage({ params }: { params: { id: string } }
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-2 tracking-wide">
             {estateDetails.name}
           </h1>
-          <p className="text-lg sm:text-xl font-light">{estateDetails.location}</p>
+          <p className="text-lg sm:text-xl font-light">
+            {estateDetails.location}
+          </p>
         </div>
       </header>
 
       {/* --- ESTATE DETAILS (STAT BOXES) --- */}
       <section className="container mx-auto px-4 -mt-10 sm:-mt-16 relative z-10 flex justify-center items-center ">
         <div className="flex justify-center items-center gap-4 flex-wrap">
-          <DetailBox label="Total Area" value={estateDetails.details.totalArea} />
-          <DetailBox label="Workers Count" value={estateDetails.details.workersCount} />
-          <DetailBox label="Crop Types" value={estateDetails.details.cropTypes.join(', ')} />
-          <DetailBox label="Year Established" value={estateDetails.details.yearEstablished} />
+          <DetailBox
+            label="Total Area"
+            value={estateDetails.details.totalArea}
+          />
+          <DetailBox
+            label="Workers Count"
+            value={estateDetails.details.workersCount}
+          />
+          <DetailBox
+            label="Crop Types"
+            value={estateDetails.details.cropTypes.join(", ")}
+          />
+          <DetailBox
+            label="Year Established"
+            value={estateDetails.details.yearEstablished}
+          />
         </div>
       </section>
 
@@ -74,7 +95,9 @@ export default function EstateDetailsPage({ params }: { params: { id: string } }
 
       {/* --- GALLERY --- */}
       <section className="container mx-auto px-4 py-8 ">
-        <h2 className="text-2xl font-semibold text-center mb-8 text-green-800">Gallery</h2>
+        <h2 className="text-2xl font-semibold text-center mb-8 text-green-800">
+          Gallery
+        </h2>
         <div className="flex justify-center">
           {/* Using the first image from gallery as the main display as per the original image */}
           {estateDetails.galleryImages.length > 0 && (
@@ -92,7 +115,9 @@ export default function EstateDetailsPage({ params }: { params: { id: string } }
 
       {/* --- LOCATION MAP --- */}
       <section className="container mx-auto px-4 py-16">
-        <h2 className="text-2xl font-semibold text-center mb-8 text-green-800">Location</h2>
+        <h2 className="text-2xl font-semibold text-center mb-8 text-green-800">
+          Location
+        </h2>
         <div className="w-full max-w-5xl mx-auto h-96 bg-gray-200 rounded-xl overflow-hidden shadow-xl">
           {/* Map Embed - **Note on Security:** Iframes can pose security risks. 
              In a production app, ensure your map source is trusted. */}
@@ -114,7 +139,7 @@ export default function EstateDetailsPage({ params }: { params: { id: string } }
         <h3 className="text-xl mb-12">
           Interested in visiting or learning more about our estates?
         </h3>
-        <a 
+        <a
           href={`mailto:${estateDetails.contactEmail}`}
           className="bg-white text-green-800 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition duration-300"
         >

@@ -1,6 +1,6 @@
+import { Facebook, Instagram } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Facebook, Instagram, Linkedin, X } from 'lucide-react';
 
 const LOGO_PATH = '/logo.png';
 

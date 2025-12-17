@@ -1,11 +1,11 @@
-import Link from 'next/link';
+import { ChevronRight, Mail, Recycle, Sprout, Users } from 'lucide-react';
 import Image from 'next/image';
-import { ChevronRight, Mail } from 'lucide-react';
+import Link from 'next/link';
 
 
-const IconSustainable = () => <div className="text-3xl text-green-600"><Image width={30} alt='feature icon' height={30} src={'/Group 1.png'}/></div>;
-const IconQuality = () => <div className="text-3xl text-green-600"><Image width={30} alt='feature icon' height={30} src={'/Group 2.png'}/></div>;
-const IconCommunity = () => <div className="text-3xl text-green-600"><Image width={30} alt='feature icon' height={30} src={'/Group 3.png'}/></div>;
+const IconSustainable = () => <div className="text-3xl text-green-600"><Recycle width={40}/></div>;
+const IconQuality = () => <div className="text-3xl text-green-600"><Sprout width={40}/></div>;
+const IconCommunity = () => <div className="text-3xl text-green-600"><Users width={40}/></div>;
 
 // --- Feature Card Data ---
 const featureCards = [

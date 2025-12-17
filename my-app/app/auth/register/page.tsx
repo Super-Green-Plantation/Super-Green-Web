@@ -1,9 +1,8 @@
 'use client'
 
-import { User, Mail, Lock, Phone, ArrowRight, ShieldCheck } from "lucide-react";
+import { ArrowRight, Lock, Mail, Phone, ShieldCheck, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 const RegisterPage = () => {
   return (

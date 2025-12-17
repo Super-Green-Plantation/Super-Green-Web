@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 const page = () => {
   const BACKGROUND_IMAGE_PATH = "/hero.png";

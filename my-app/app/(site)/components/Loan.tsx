@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 const Loan = () => {
     const IMG = "/ml bg.png"

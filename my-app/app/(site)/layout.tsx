@@ -10,8 +10,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="flex flex-col min-h-screen">
+    
+      <div >
         <NavBar/>
         <main className="pt-14 grow ">
           {children}
@@ -20,7 +20,6 @@ export default function RootLayout({
         <footer>
           <Footer/>
         </footer>
-      </body>
-    </html>
+      </div>
   );
 }
