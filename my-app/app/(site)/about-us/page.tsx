@@ -23,6 +23,7 @@ const AboutPage = () => {
     },
   ];
 
+  
   return (
     <div className="bg-white min-h-screen">
       {/* 1. Hero Section */}
