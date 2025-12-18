@@ -14,6 +14,7 @@ const LoginPage = () => {
           fill
           className="object-cover opacity-30"
           priority
+          sizes="object-cover"
         />
         <div className="relative z-10 p-12 text-white max-w-lg">
           <h1 className="text-4xl font-bold mb-4">Welcome Back to SuperGreen</h1>

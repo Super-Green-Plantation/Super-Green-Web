@@ -6,17 +6,20 @@ const AboutPage = () => {
     {
       icon: <Leaf className="text-green-600" />,
       title: "Sustainability First",
-      description: "Every decision we make is rooted in protecting the earth for future generations.",
+      description:
+        "Every decision we make is rooted in protecting the earth for future generations.",
     },
     {
       icon: <Target className="text-green-600" />,
       title: "Precision Farming",
-      description: "Using data-driven techniques to maximize yield while minimizing waste.",
+      description:
+        "Using data-driven techniques to maximize yield while minimizing waste.",
     },
     {
       icon: <Users className="text-green-600" />,
       title: "Community Driven",
-      description: "We empower local farmers by providing them with the tools to succeed.",
+      description:
+        "We empower local farmers by providing them with the tools to succeed.",
     },
   ];
 
@@ -30,12 +33,16 @@ const AboutPage = () => {
           fill
           className="object-cover"
           priority
+          style={{ objectFit: "cover" }} // Ensures image covers the area without stretching
         />
         <div className="absolute inset-0 bg-black/50 z-5"></div>
         <div className="relative z-10 text-center text-white px-6">
-          <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">Our Story</h1>
+          <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
+            Our Story
+          </h1>
           <p className="text-xl max-w-2xl mx-auto font-light">
-            Cultivating a greener future through innovation, tradition, and a deep respect for the land.
+            Cultivating a greener future through innovation, tradition, and a
+            deep respect for the land.
           </p>
         </div>
       </section>
@@ -44,16 +51,22 @@ const AboutPage = () => {
       <section className="max-w-6xl mx-auto px-6 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
-            <span className="text-green-600 font-bold tracking-widest uppercase text-sm">Since 1998</span>
-            <h2 className="text-4xl font-bold text-gray-900 mt-4 mb-6">Growing Beyond Boundaries</h2>
+            <span className="text-green-600 font-bold tracking-widest uppercase text-sm">
+              Since 1998
+            </span>
+            <h2 className="text-4xl font-bold text-gray-900 mt-4 mb-6">
+              Growing Beyond Boundaries
+            </h2>
             <p className="text-gray-600 leading-relaxed mb-6">
-              SuperGreen started with a single plot of land and a vision: to prove that high-scale agriculture 
-              could coexist with environmental preservation. Today, we are leaders in organic export and 
+              SuperGreen started with a single plot of land and a vision: to
+              prove that high-scale agriculture could coexist with environmental
+              preservation. Today, we are leaders in organic export and
               sustainable irrigation techniques.
             </p>
             <p className="text-gray-600 leading-relaxed">
-              We believe that food should not only be healthy for the consumer but also healthy for the soil. 
-              By blending ancient wisdom with modern technology, we ensure our harvests are second to none.
+              We believe that food should not only be healthy for the consumer
+              but also healthy for the soil. By blending ancient wisdom with
+              modern technology, we ensure our harvests are second to none.
             </p>
           </div>
           <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl">
@@ -62,6 +75,9 @@ const AboutPage = () => {
               alt="Our farming process"
               fill
               className="object-cover"
+              priority
+              sizes={"object-cover"}
+           
             />
           </div>
         </div>
@@ -73,12 +89,19 @@ const AboutPage = () => {
           <h2 className="text-3xl font-bold mb-12">What Drives Us</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {values.map((value, index) => (
-              <div key={index} className="bg-white p-10 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+              <div
+                key={index}
+                className="bg-white p-10 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+              >
                 <div className="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
                   {value.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{value.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{value.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  {value.title}
+                </h3>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  {value.description}
+                </p>
               </div>
             ))}
           </div>
@@ -90,19 +113,27 @@ const AboutPage = () => {
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
             <p className="text-4xl font-bold mb-2">15k+</p>
-            <p className="text-green-100 text-sm uppercase tracking-wide font-medium">Acres Managed</p>
+            <p className="text-green-100 text-sm uppercase tracking-wide font-medium">
+              Acres Managed
+            </p>
           </div>
           <div>
             <p className="text-4xl font-bold mb-2">100%</p>
-            <p className="text-green-100 text-sm uppercase tracking-wide font-medium">Organic Certified</p>
+            <p className="text-green-100 text-sm uppercase tracking-wide font-medium">
+              Organic Certified
+            </p>
           </div>
           <div>
             <p className="text-4xl font-bold mb-2">500+</p>
-            <p className="text-green-100 text-sm uppercase tracking-wide font-medium">Local Farmers</p>
+            <p className="text-green-100 text-sm uppercase tracking-wide font-medium">
+              Local Farmers
+            </p>
           </div>
           <div>
             <p className="text-4xl font-bold mb-2">24</p>
-            <p className="text-green-100 text-sm uppercase tracking-wide font-medium">Export Countries</p>
+            <p className="text-green-100 text-sm uppercase tracking-wide font-medium">
+              Export Countries
+            </p>
           </div>
         </div>
       </section>
@@ -110,16 +141,18 @@ const AboutPage = () => {
       {/* 5. Call to Action */}
       <section className="py-20 text-center px-6">
         <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Interested in our processes?</h2>
-            <p className="text-gray-600 mb-10 text-lg font-light">
-                We believe in full transparency. Learn more about how we handle our crops or reach out to partner with us.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="bg-green-600 text-white px-10 py-4 rounded-full font-bold hover:bg-green-700 transition-all shadow-lg">
-                    Contact Our Team
-                </button>
-                
-            </div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Interested in our processes?
+          </h2>
+          <p className="text-gray-600 mb-10 text-lg font-light">
+            We believe in full transparency. Learn more about how we handle our
+            crops or reach out to partner with us.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button className="bg-green-600 text-white px-10 py-4 rounded-full font-bold hover:bg-green-700 transition-all shadow-lg">
+              Contact Our Team
+            </button>
+          </div>
         </div>
       </section>
     </div>

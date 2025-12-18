@@ -14,7 +14,10 @@ const DetailBox: React.FC<DetailBoxProps> = ({ label, value }) => (
   </div>
 );
 
-export default function EstateDetailsPage({params}: { params: { id: string };
+export default function EstateDetailsPage({
+  params,
+}: {
+  params: { id: string };
 }) {
   const id = Number(params.id);
 
@@ -48,9 +51,10 @@ export default function EstateDetailsPage({params}: { params: { id: string };
         <Image
           src={estateDetails.heroImg}
           alt={`${estateDetails.name} Plantation`}
-          layout="fill"
-          objectFit="cover"
+          fill
+          priority
           className="filter brightness-75"
+          sizes={"object-cover"}
         />
 
         {/* Hero Text */}
@@ -105,8 +109,9 @@ export default function EstateDetailsPage({params}: { params: { id: string };
               <Image
                 src={estateDetails.galleryImages[0]}
                 alt={`Gallery View of ${estateDetails.name}`}
-                layout="fill"
-                objectFit="cover"
+                fill
+                priority
+                sizes={"object-cover"}
               />
             </div>
           )}

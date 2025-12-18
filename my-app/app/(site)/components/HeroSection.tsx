@@ -98,7 +98,7 @@ export default function HeroSection() {
 
             {/* Get Started Button (Prominent Green) */}
             <Link 
-              href="/register" 
+              href="/auth/register" 
               className="
                 py-3 px-8 rounded-lg bg-green-600 text-white font-bold 
                 hover:bg-green-700 transition-colors duration-300 
