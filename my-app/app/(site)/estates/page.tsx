@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const page = () => {
+const Estate = () => {
   const BACKGROUND_IMAGE_PATH = "/hero.png";
 
   const estate = [
@@ -44,10 +44,10 @@ const page = () => {
         />
         <div className="absolute inset-0 bg-black opacity-30 z-5"></div>
         <div className="relative z-10 w-[90%] flex-col flex justify-center max-w-6xl mx-auto py-20 md:py-32 text-white items-center">
-          <h2 className="md:text-6xl text-2xl font-extrabold leading-tight">
+          <h2 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
             Our Estates
           </h2>
-          <p className="text-lg md:text-xl  font-medium ">
+          <p className="text-xl max-w-2xl mx-auto font-light ">
             Discover the lands that power our plantation operations across Sri
             Lanka.
           </p>
@@ -66,7 +66,7 @@ const page = () => {
         </p>
       </div>
 
-      <div className="max-w-6xl mx-auto px-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="w-[90%] max-w-6xl mx-auto px-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {estate.map((es, index) => (
           <div
             key={index}
@@ -104,4 +104,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Estate;

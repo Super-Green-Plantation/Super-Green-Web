@@ -26,7 +26,7 @@ const AboutPage = () => {
   return (
     <div className="bg-white min-h-screen">
       {/* 1. Hero Section */}
-      <section className="relative w-full min-h-[50vh] flex items-center justify-center overflow-hidden">
+      <section className="relative w-full h-80 flex items-center justify-center overflow-hidden">
         <Image
           src="/hero.png" // Replace with your image
           alt="Lush agricultural landscape"
@@ -69,7 +69,7 @@ const AboutPage = () => {
               modern technology, we ensure our harvests are second to none.
             </p>
           </div>
-          <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl">
+          <div className="relative h-80 rounded-3xl overflow-hidden shadow-2xl">
             <Image
               src="/inquiry.png" // Replace with your image
               alt="Our farming process"

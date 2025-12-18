@@ -51,7 +51,7 @@ const LoginPage = () => {
       {/* Left Side: Visual/Branding (Mirroring Register for consistency) */}
       <div className="relative hidden lg:flex items-center justify-center bg-green-900">
         <Image
-          src="/hero.png" // Use a calming, evening-time farm shot or a focused close-up
+          src="/pl2.png" // Use a calming, evening-time farm shot or a focused close-up
           alt="Sustainable agriculture focus"
           fill
           className="object-cover opacity-30"

@@ -2,43 +2,41 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Loan = () => {
-    const IMG = "/ml bg.png"
+  const IMG = "/ml bg.png";
   return (
     <div>
-      <section className="w-[90%] mx-auto py-16 md:py-24 bg-white flex flex-col items-center">
-        
+      <section className="w-[90%]  mx-auto py-16 md:py-24 bg-white flex flex-col items-center">
         {/* --- Micro Loan Container (Matches Hero/Estates alignment) --- */}
         <div className="w-full max-w-6xl mx-auto px-4 md:px-0">
-          
-          <div 
+          <div
             className="
-              w-full h-80 md:h-96 rounded-2xl p-8 md:p-12
+              w-full h-100 md:h-96 rounded-2xl p-8 md:p-12
               bg-[url('/ml bg.png')] bg-cover bg-center bg-no-repeat 
               shadow-2xl flex flex-col justify-center relative overflow-hidden
             "
           >
-            <Image 
-            src={IMG}
-          alt="plantation fields in Sri Lanka"
-          fill // Makes the image fill the entire container
-          style={{ objectFit: 'cover' }} // Ensures image covers the area without stretching
-          priority // Load image early as it's the main hero image
-        
+            <Image
+              src={IMG}
+              alt="plantation fields in Sri Lanka"
+              fill
+              style={{ objectFit: "cover" }}
+              priority
             />
-            {/* Dark Overlay for Text Readability (optional, but good practice) */}
             <div className="absolute inset-0 bg-black/40 rounded-2xl"></div>
 
-            {/* Content, positioned over the overlay with z-10 */}
-            <div className="relative z-10 text-white max-w-xl">
-              <h2 className="text-3xl md:text-4xl font-bold mb-3 leading-snug">
+            <div className="py-10 relative z-10 text-white max-w-xl">
+              <h2 className="text-2xl md:text-4xl font-bold mb-3 leading-snug">
                 Micro Loans for Growing Communities
               </h2>
               <p className="text-base md:text-lg mb-6">
-                We offer flexible micro-loans to support small businesses, farmers, and individuals in need of financial assistance. Quick approvals, low requirements, and plans designed for real-life needs.
+                We offer flexible micro-loans to support small businesses,
+                farmers, and individuals in need of financial assistance. Quick
+                approvals, low requirements, and plans designed for real-life
+                needs.
               </p>
-              
+
               {/* Link button styling matching Navbar/Investments */}
-              <Link 
+              <Link
                 href="/#" //micro-loans
                 className="
                   inline-block bg-green-600 py-3 px-8 rounded-lg text-white font-semibold 

@@ -18,10 +18,10 @@ const ContactPage = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/30 z-5"></div>
 
         <div className="relative z-10 w-[90%] max-w-4xl text-center text-white">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
             Get in Touch
           </h1>
-          <p className="text-lg md:text-xl font-light opacity-90 max-w-2xl mx-auto">
+          <p className="text-xl max-w-2xl mx-auto font-light">
             Have questions about our sustainable farming? Reach out to our head
             office directly.
           </p>
@@ -116,7 +116,6 @@ const ContactPage = () => {
           </button>
         </div>
 
-        {/* Inquiry Form Section (New Addition) */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-100">
           {/* Form Column (Left - 2/3 width on large screen) */}
           <div className="lg:col-span-2">
@@ -129,9 +128,6 @@ const ContactPage = () => {
             </p>
 
             <form className="space-y-6">
-              {/* Topic Dropdown */}
-              <div></div>
-
               {/* Name Fields */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
@@ -231,7 +227,7 @@ const ContactPage = () => {
           <div className="lg:col-span-1 flex flex-col items-center pt-8 lg:pt-0">
             <div className="relative w-full h-64 rounded-xl overflow-hidden shadow-lg mb-6">
               <Image
-                src="/inquiry.png" // Placeholder: Use the image from the original design or similar
+                src="/pl3.png" // Placeholder: Use the image from the original design or similar
                 alt="A young green seedling growing in dark soil"
                 fill
                 className="object-cover"
@@ -270,7 +266,6 @@ const ContactPage = () => {
             </Link>
           </div>
         </div>
-        {/* End Inquiry Form Section */}
       </div>
     </div>
   );

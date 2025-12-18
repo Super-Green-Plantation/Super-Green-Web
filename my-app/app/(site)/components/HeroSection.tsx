@@ -30,7 +30,7 @@ const featureCards = [
 ];
 
 // Assuming your background image is in the public folder
-const BACKGROUND_IMAGE_PATH = '/hero.png'; 
+const BACKGROUND_IMAGE_PATH = '/land.jpg'; 
 
 // --- Feature Card Component ---
 const FeatureCard = ({ icon: Icon, title, description, bgColor }:any) => (
