@@ -3,8 +3,8 @@
 import { ArrowRight, Lock, Mail, Phone, ShieldCheck, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { toast } from "sonner";
 
 const RegisterPage = () => {
@@ -15,21 +15,37 @@ const RegisterPage = () => {
 
   const first_name = full_name.split(" ")[0] || "";
   const last_name = full_name.split(" ")[1] || "";
+  
+  const router = useRouter();
 
   async function register(data: any) {
-    try {
-      await fetch("/api/register", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
+  try {
+    data.e.preventDefault(); // prevents page refresh
 
-      return toast.success("Registered successfully!");
-      
-    } catch (error) {
-      return toast.success("Registered failed!");
-      
+    const response = await fetch("/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        phone: data.phone,
+        password: data.password,
+      }),
+    });
+
+    if (response.ok) {
+      toast.success("Registered successfully!");
+      router.push('/auth/login');
+    } else {
+      toast.error("Registration failed!");
     }
+  } catch (error) {
+    toast.error("Registration failed!");
+    console.error(error);
   }
+}
+
 
   return (
     <div className="min-h-screen w-screen grid grid-cols-1 lg:grid-cols-2">
@@ -99,7 +115,9 @@ const RegisterPage = () => {
               </p>
             </div>
 
-            <form className="space-y-5">
+            <form className="space-y-5"
+            onSubmit={(e)=>register({ e,first_name, last_name, email, phone, password })}
+            >
               {/* Full Name */}
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 ml-1">
@@ -214,9 +232,7 @@ const RegisterPage = () => {
               <button
                 type="submit"
                 className="w-full group bg-green-700 hover:bg-green-800 text-white font-bold py-4 rounded-xl shadow-lg shadow-green-200 transition-all flex items-center justify-center gap-2"
-                onClick={(e) =>
-                  register({ first_name, last_name, email, phone, password })
-                }
+                
               >
                 Create Account
                 <ArrowRight
