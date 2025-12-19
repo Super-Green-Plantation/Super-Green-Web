@@ -11,8 +11,7 @@ export async function POST(req: Request) {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
-        console.log(hash);
-
+    console.log(hash);
 
     const user = await prisma.user.create({
       data: {
@@ -23,6 +22,9 @@ export async function POST(req: Request) {
         password: hash,
       },
     });
+
+    console.log("Register API hit");
+    console.log("DB URL exists:", !!process.env.DATABASE_URL);
 
     return NextResponse.json(user, { status: 201 });
   } catch (error: unknown) {
@@ -35,4 +37,3 @@ export async function POST(req: Request) {
     );
   }
 }
-
