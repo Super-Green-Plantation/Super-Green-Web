@@ -87,14 +87,23 @@ const RegisterPage = () => {
         }),
       });
 
-      if (response.ok) {
-        toast.success("Registered successfully!");
+      if (response.status === 409) {
         setLoad(false);
-        router.push("/auth/login");
-      } else {
-        setLoad(false);
-        toast.error("Registration failed!");
+
+        toast.error("Email already registered");
+        return;
       }
+
+      if (!response.ok) {
+        setLoad(false);
+
+        toast.error("Registration failed");
+        return;
+      }
+
+      toast.success("Registered successfully");
+      setLoad(false);
+      router.push("/auth/login");
     } catch (error) {
       setLoad(false);
       toast.error("Registration failed!");
@@ -371,7 +380,6 @@ const RegisterPage = () => {
                   />
                 </button>
               )}
-              
             </form>
 
             {/* Social Login Divider */}

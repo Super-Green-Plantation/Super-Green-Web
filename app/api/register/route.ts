@@ -17,8 +17,13 @@ export async function POST(req: Request) {
     })
 
     if (existEmail) {
-      return NextResponse.json({message:"Already Registered !"})
-    }
+  return NextResponse.json(
+    { message: "Email already registered" },
+    { status: 409 }
+  );
+}
+
+
     const user = await prisma.user.create({
       data: {
         first_name: body.first_name,
