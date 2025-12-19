@@ -7,9 +7,9 @@ const Estates = () => {
     // NOTE: Ensure these image paths are correct in your public folder
     main: { src: '/cinnamon tree.png', alt: 'Cinnamon leaves' },
     nutmeg: { src: '/sadikks.JPG', alt: 'Nutmeg fruit' },
-    pepper: { src: '/b p.jfif', alt: 'Pepper plant' },
-    tea: { src: '/tea.jfif', alt: 'Tea leaves' },
-    bell_pepper: { src: '/bell pepper.jfif', alt: 'Red bell peppers' },
+    pepper: { src: '/b p.png', alt: 'Pepper plant' },
+    tea: { src: '/tea.png', alt: 'Tea leaves' },
+    bell_pepper: { src: '/bell pepper.png', alt: 'Red bell peppers' },
   };
 
 

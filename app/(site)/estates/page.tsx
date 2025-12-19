@@ -12,17 +12,17 @@ const Estate = () => {
     },
     {
       id: 2,
-      img: "/sample-2.jfif",
+      img: "/sample-2.png",
       location: "Matara",
     },
     {
       id: 3,
-      img: "/sample-3.jfif",
+      img: "/sample-3.png",
       location: "Hambantota",
     },
     {
       id: 4,
-      img: "/sample-4.jfif",
+      img: "/sample-4.png",
       location: "Rathnapura",
     },
     {
