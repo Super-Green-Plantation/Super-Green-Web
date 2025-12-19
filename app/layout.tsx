@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Toaster } from "sonner";
 import "./globals.css";
-
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   title: "Super Green Plantation",
@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>{children}
-
+      <Analytics/>
       <Toaster />
       </body>
     </html>
