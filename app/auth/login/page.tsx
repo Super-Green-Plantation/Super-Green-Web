@@ -1,12 +1,13 @@
 "use client";
 
-import { ArrowRight, EyeOff, Lock, Mail } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
+import { ArrowRight, Eye, EyeOff, Lock, Mail } from "lucide-react"; // Added Eye
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-import z, { email } from "zod";
+import z from "zod";
 
 const useSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -17,13 +18,18 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<Record<string, string>>({});
+  const [load, setLoad] = useState(false);
+
+  // Password visibility state
+  const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
 
   async function login(data: any) {
-    data.e.preventDefault(); // prevent page refresh
+    data.e.preventDefault();
+    setLoad(true); // Start loading at the beginning of the function
+    setError({});
 
-    // Validate input data
     const validation = useSchema.safeParse({
       email: data.email,
       password: data.password,
@@ -31,14 +37,15 @@ const LoginPage = () => {
 
     if (!validation.success) {
       const fieldErrors: Record<string, string> = {};
-
       validation.error.issues.forEach((err) => {
         const fieldName = err.path[0] as string;
         fieldErrors[fieldName] = err.message;
       });
       setError(fieldErrors);
+      setLoad(false); // Stop loading if validation fails
       return;
     }
+
     try {
       const response = await fetch("/api/login", {
         method: "POST",
@@ -49,42 +56,37 @@ const LoginPage = () => {
         }),
       });
 
-      const result = await response.json(); // parse JSON
-
-      const token = result.token;
-      localStorage.setItem("token", token);
-
-      console.log(token);
+      const result = await response.json();
 
       if (response.ok) {
-        toast.success(result.message);
+        const token = result.token;
+        localStorage.setItem("token", token);
+        toast.success(result.message || "Login successful!");
         router.push("/dashboard");
       } else {
-        // show API's custom error message
-        toast.error(result.message);
+        toast.error(result.message || "Invalid credentials");
+        setLoad(false);
       }
     } catch (error) {
       toast.error("Login failed, try again!");
       console.error(error);
+      setLoad(false);
     }
   }
 
   return (
     <div className="w-full min-h-screen grid grid-cols-1 lg:grid-cols-2">
-      {/* Left Side: Visual/Branding (Mirroring Register for consistency) */}
+      {/* Left Side: Visual/Branding */}
       <div className="relative hidden lg:flex items-center justify-center bg-green-900">
         <Image
-          src="/pl2.png" // Use a calming, evening-time farm shot or a focused close-up
+          src="/pl2.png"
           alt="Sustainable agriculture focus"
           fill
           className="object-cover opacity-30"
           priority
-          sizes="object-cover"
         />
         <div className="relative z-10 p-12 text-white max-w-lg">
-          <h1 className="text-4xl font-bold mb-4">
-            Welcome Back to SuperGreen
-          </h1>
+          <h1 className="text-4xl font-bold mb-4">Welcome Back to SuperGreen</h1>
           <p className="text-lg text-green-50 mb-8 font-light leading-relaxed">
             Log in to access your dashboard, manage your supply chain, and stay
             updated with our latest harvests.
@@ -95,7 +97,6 @@ const LoginPage = () => {
       {/* Right Side: Login Form */}
       <div className="flex items-center justify-center p-8 bg-gray-50">
         <div className="w-full max-w-md">
-          {/* Mobile Logo */}
           <div className="lg:hidden mb-12 text-center">
             <h2 className="text-3xl font-bold text-green-700">SuperGreen</h2>
           </div>
@@ -132,7 +133,6 @@ const LoginPage = () => {
                     type="email"
                     placeholder="name@company.com"
                     className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none transition-all"
-                    
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   {error.email && (
@@ -160,24 +160,23 @@ const LoginPage = () => {
                     size={20}
                   />
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"} // Dynamic type
                     placeholder="••••••••"
                     className="w-full pl-11 pr-12 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none transition-all"
-                    
                     onChange={(e) => setPassword(e.target.value)}
                   />
 
-                  {error.password && (
-                    <p className="text-red-500 text-xs mt-1">
-                      {error.password}
-                    </p>
-                  )}
                   <button
-                    type="button"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    type="button" // Prevents form trigger
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                   >
-                    <EyeOff size={18} />
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
+
+                  {error.password && (
+                    <p className="text-red-500 text-xs mt-1">{error.password}</p>
+                  )}
                 </div>
               </div>
 
@@ -186,11 +185,11 @@ const LoginPage = () => {
                 <input
                   type="checkbox"
                   id="remember"
-                  className="w-4 h-4 accent-green-600 rounded"
+                  className="w-4 h-4 accent-green-600 rounded cursor-pointer"
                 />
                 <label
                   htmlFor="remember"
-                  className="text-sm text-gray-600 font-medium"
+                  className="text-sm text-gray-600 font-medium cursor-pointer"
                 >
                   Remember me for 30 days
                 </label>
@@ -199,14 +198,23 @@ const LoginPage = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-green-700 hover:bg-green-800 text-white font-bold py-4 rounded-2xl shadow-lg shadow-green-100 transition-all flex items-center justify-center gap-3 transform active:scale-[0.98]"
+                disabled={load}
+                className="w-full bg-green-700 hover:bg-green-800 text-white font-bold py-4 rounded-2xl shadow-lg shadow-green-100 transition-all flex items-center justify-center gap-3 transform active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                Sign In
-                <ArrowRight size={20} />
+                {load ? (
+                  <>
+                    Logging in...
+                    <Spinner className="w-5 h-5 border-white" />
+                  </>
+                ) : (
+                  <>
+                    Sign In
+                    <ArrowRight size={20} />
+                  </>
+                )}
               </button>
             </form>
 
-            {/* Divider */}
             <div className="relative my-10">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t border-gray-100"></span>
@@ -218,7 +226,6 @@ const LoginPage = () => {
               </div>
             </div>
 
-            {/* Social Logins */}
             <div className="grid grid-cols-1 gap-3">
               <button className="flex items-center justify-center gap-3 py-3.5 border border-gray-200 rounded-2xl hover:bg-gray-50 transition-all text-sm font-semibold text-gray-700">
                 <img src="/google.jpg" alt="Google" className="w-5 h-5" />

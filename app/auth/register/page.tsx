@@ -1,5 +1,6 @@
 "use client";
 
+import { Spinner } from "@/components/ui/spinner";
 import {
   ArrowRight,
   Eye,
@@ -37,6 +38,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const [load, setLoad] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [showPassword, setShowPassword] = useState(false);
@@ -66,6 +68,7 @@ const RegisterPage = () => {
         fieldErrors[fieldName] = issue.message;
       });
 
+      setLoad(false);
       setErrors(fieldErrors);
       return;
     }
@@ -86,11 +89,14 @@ const RegisterPage = () => {
 
       if (response.ok) {
         toast.success("Registered successfully!");
+        setLoad(false);
         router.push("/auth/login");
       } else {
+        setLoad(false);
         toast.error("Registration failed!");
       }
     } catch (error) {
+      setLoad(false);
       toast.error("Registration failed!");
       console.error(error);
     }
@@ -167,7 +173,15 @@ const RegisterPage = () => {
             <form
               className="space-y-5"
               onSubmit={(e) =>
-                register({ e, first_name, last_name, email, phone, password, confirmPassword })
+                register({
+                  e,
+                  first_name,
+                  last_name,
+                  email,
+                  phone,
+                  password,
+                  confirmPassword,
+                })
               }
             >
               {/* Full Name */}
@@ -205,7 +219,7 @@ const RegisterPage = () => {
                     size={18}
                   />
                   <input
-                    type="email"
+                    type="text"
                     placeholder="john@example.com"
                     className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
                     onChange={(e) => setEmail(e.target.value)}
@@ -335,16 +349,29 @@ const RegisterPage = () => {
               </div>
 
               {/* Submit Button */}
-              <button
-                type="submit"
-                className="w-full group bg-green-700 hover:bg-green-800 text-white font-bold py-4 rounded-xl shadow-lg shadow-green-200 transition-all flex items-center justify-center gap-2"
-              >
-                Create Account
-                <ArrowRight
-                  size={18}
-                  className="group-hover:translate-x-1 transition-transform"
-                />
-              </button>
+              {load ? (
+                <button
+                  type="submit"
+                  className="w-full group bg-green-700 hover:bg-green-800 text-white font-bold py-4 rounded-xl shadow-lg shadow-green-200 transition-all flex items-center justify-center gap-2"
+                  onClick={() => setLoad(true)}
+                >
+                  Registering ...
+                  <Spinner className="w-5 h-5 border-white" />
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="w-full group bg-green-700 hover:bg-green-800 text-white font-bold py-4 rounded-xl shadow-lg shadow-green-200 transition-all flex items-center justify-center gap-2"
+                  onClick={() => setLoad(true)}
+                >
+                  Create Account
+                  <ArrowRight
+                    size={18}
+                    className="group-hover:translate-x-1 transition-transform"
+                  />
+                </button>
+              )}
+              
             </form>
 
             {/* Social Login Divider */}

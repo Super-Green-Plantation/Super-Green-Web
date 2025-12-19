@@ -1,5 +1,6 @@
 "use client";
 
+import { Spinner } from "@/components/ui/spinner";
 import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,6 +22,8 @@ const ContactPage = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+
+  const [load, setLoad] = useState(false);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -45,6 +48,7 @@ const ContactPage = () => {
         fieldErrors[fieldName] = issue.message;
       });
 
+      setLoad(false);
       setErrors(fieldErrors);
       return;
     }
@@ -61,11 +65,14 @@ const ContactPage = () => {
       });
 
       if (response.ok) {
+        setLoad(false);
         toast.success("Inquiry Sent !");
       } else {
+        setLoad(false);
         toast.error("Failed to send inquiry.");
       }
     } catch (error) {
+      setLoad(false);
       toast.error("Failed to send inquiry.");
       console.error(error);
     }
@@ -284,12 +291,24 @@ const ContactPage = () => {
                 )}
               </div>
 
-              <button
-                type="submit"
-                className="cursor-pointer w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-md text-lg font-semibold text-white bg-green-600 hover:bg-green-700 transition-colors"
-              >
-                Submit Inquiry
-              </button>
+              {load ? (
+                <button
+                  type="submit"
+                  className="cursor-pointer w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-full shadow-md text-lg font-semibold text-white bg-green-600 hover:bg-green-700 transition-colors"
+                  onClick={() => setLoad(true)}
+                >
+                  Submiting  
+                  <Spinner className="w-5 h-5 border-white "/>
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="cursor-pointer w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-md text-lg font-semibold text-white bg-green-600 hover:bg-green-700 transition-colors"
+                  onClick={() => setLoad(true)}
+                >
+                  Submit Inquiry
+                </button>
+              )}
             </form>
           </div>
 
