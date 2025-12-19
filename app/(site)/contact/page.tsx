@@ -5,19 +5,19 @@ import Link from "next/link";
 const ContactPage = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Hero Section */}
-      <div className="relative w-full min-h-[45vh] flex items-center justify-center overflow-hidden">
+      {/* 1. Hero Section - Standardized to Estate/About style */}
+      <div className="relative w-full min-h-[40vh] flex items-center justify-center overflow-hidden">
         <Image
-          src="/hero.png" // Ensure this image path is correct
+          src="/hero.png" 
           alt="Lush green tea plantation fields"
           fill
           className="object-cover"
           priority
-          style={{ objectFit: "cover" }} // Ensures image covers the area without stretching
+          style={{ objectFit: "cover" }}
         />
-        <div className="absolute inset-0 bg-linear-to-b from-black/60 to-black/30 z-5"></div>
+        <div className="absolute inset-0 bg-black/50 z-5"></div>
 
-        <div className="relative z-10 w-[90%] max-w-4xl text-center text-white">
+        <div className="relative z-10 w-[90%] max-w-6xl text-center text-white">
           <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
             Get in Touch
           </h1>
@@ -28,19 +28,21 @@ const ContactPage = () => {
         </div>
       </div>
 
-      {/* Content Section (Contact Details) */}
-      <div className="max-w-6xl mx-auto px-6 py-16">
+      {/* 2. Main Content Wrapper */}
+      <div className="w-[90%] max-w-6xl mx-auto py-16 md:py-24">
+        
+        {/* Head Office Header */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-10 border-b pb-6 border-gray-200">
           <div>
-            <h2 className="text-3xl font-bold text-gray-900">Head Office</h2>
-            <p className="text-gray-500 mt-2">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Head Office</h2>
+            <p className="text-gray-500 mt-2 text-lg">
               Connect with us through any of these channels.
             </p>
           </div>
         </div>
 
-        {/* Contact Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        {/* 3. Contact Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {/* Phone Card */}
           <div className="group bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:border-green-500 transition-all duration-300">
             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 mb-6 group-hover:bg-green-600 group-hover:text-white transition-colors">
@@ -87,7 +89,7 @@ const ContactPage = () => {
           </div>
         </div>
 
-        {/* Office Hours & Location Banner */}
+        {/* 4. Office Hours Banner */}
         <div className="bg-green-700 rounded-3xl p-8 md:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl overflow-hidden relative mb-16">
           <MapPin
             size={200}
@@ -111,13 +113,13 @@ const ContactPage = () => {
             </div>
           </div>
 
-          <a href="https://maps.app.goo.gl/CAmzurnq52cFjFfJ7" target="blank" className="relative z-10 bg-white text-green-700 px-8 py-4 rounded-full font-bold hover:bg-green-50 transition-colors shadow-lg">
+          <a href="#" target="blank" className="relative z-10 bg-white text-green-700 px-8 py-4 rounded-full font-bold hover:bg-green-50 transition-colors shadow-lg">
             View on Google Maps
           </a>
         </div>
 
+        {/* 5. Contact Form Section */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-100">
-          {/* Form Column (Left - 2/3 width on large screen) */}
           <div className="lg:col-span-2">
             <h2 className="text-3xl font-bold text-gray-900 mb-3">
               Send Us a Message
@@ -128,141 +130,56 @@ const ContactPage = () => {
             </p>
 
             <form className="space-y-6">
-              {/* Name Fields */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label
-                    htmlFor="firstName"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    required
-                    className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
-                  />
+                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                  <input type="text" id="firstName" name="firstName" required className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500" />
                 </div>
                 <div>
-                  <label
-                    htmlFor="lastName"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Last Name
-                  </label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
-                  />
+                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                  <input type="text" id="lastName" name="lastName" className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500" />
                 </div>
               </div>
 
-              {/* Email Field */}
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
-                />
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                <input type="email" id="email" name="email" className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500" />
               </div>
 
-              {/* Phone Field */}
               <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  Phone Number{" "}
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  required
-                  className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
-                />
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500" />
               </div>
 
-              {/* Message Field */}
               <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  Your Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={4}
-                  required
-                  className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 resize-none"
-                ></textarea>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Your Message</label>
+                <textarea id="message" name="message" rows={4} required className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 resize-none"></textarea>
               </div>
 
-              {/* Submit Button */}
-              <div>
-                <button
-                  type="submit"
-                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-md text-lg font-semibold text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors"
-                >
-                  Submit Inquiry
-                </button>
-              </div>
+              <button type="submit" className="cursor-pointer w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-md text-lg font-semibold text-white bg-green-600 hover:bg-green-700 transition-colors">
+                Submit Inquiry
+              </button>
             </form>
           </div>
 
-          {/* Image/CTA Column (Right - 1/3 width on large screen) */}
           <div className="lg:col-span-1 flex flex-col items-center pt-8 lg:pt-0">
             <div className="relative w-full h-64 rounded-xl overflow-hidden shadow-lg mb-6">
               <Image
-                src="/pl3.png" // Placeholder: Use the image from the original design or similar
+                src="/pl3.png" 
                 alt="A young green seedling growing in dark soil"
                 fill
                 className="object-cover"
-                style={{ objectFit: "cover" }} // Ensures image covers the area without stretching
-                priority
-                sizes={"object-cover"}
+                sizes="(max-width: 1024px) 100vw, 33vw"
               />
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-3 text-center">
-              Join the Green Movement
-            </h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-3 text-center">Join the Green Movement</h3>
             <p className="text-gray-500 text-center text-sm">
               Join us in cultivating a greener future. Whether you're a farmer,
               or just passionate about agriculture, we love to hear your ideas
               and collaborate.
             </p>
-            <Link
-              href="/about-us"
-              className="mt-6 text-green-700 font-medium hover:text-green-800 transition-colors flex items-center gap-1"
-            >
-              Learn About Our Mission
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                />
-              </svg>
+            <Link href="/about-us" className="mt-6 text-green-700 font-medium hover:text-green-800 transition-colors flex items-center gap-1">
+              Learn About Our Mission &rarr;
             </Link>
           </div>
         </div>

@@ -29,3 +29,13 @@ model User {
   updatedAt     DateTime  @updatedAt
   emailVerified Boolean   @default(false)
 }
+
+model Inquiry {
+  id        Int      @id @default(autoincrement())
+  first_name      String
+  last_name      String?
+  email     String?
+  phone     String
+  message   String
+  createdAt DateTime @default(now())
+}

@@ -24,21 +24,20 @@ const AboutPage = () => {
     },
   ];
 
-  
   return (
     <div className="bg-white min-h-screen">
-      {/* 1. Hero Section */}
-      <section className="relative w-full h-80 flex items-center justify-center overflow-hidden">
+      {/* 1. Hero Section - Matches Estate Hero Structure */}
+      <section className="relative w-full text-center min-h-[40vh] flex justify-center items-center overflow-hidden">
         <Image
-          src="/hero.png" // Replace with your image
+          src="/hero.png"
           alt="Lush agricultural landscape"
           fill
           className="object-cover"
           priority
-          style={{ objectFit: "cover" }} // Ensures image covers the area without stretching
+          style={{ objectFit: "cover" }}
         />
         <div className="absolute inset-0 bg-black/50 z-5"></div>
-        <div className="relative z-10 text-center text-white px-6">
+        <div className="relative z-10 w-[90%] max-w-6xl mx-auto py-20 md:py-32 text-white flex flex-col items-center">
           <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
             Our Story
           </h1>
@@ -49,9 +48,9 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* 2. Mission & Vision Section */}
-      <section className="w-[90%] mx-auto px-6 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      {/* 2. Mission & Vision Section - Width adjusted to w-[90%] max-w-6xl */}
+      <section className="py-20 md:py-24">
+        <div className="w-[90%] max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
             <span className="text-green-600 font-bold tracking-widest uppercase text-sm">
               Since 1998
@@ -73,22 +72,20 @@ const AboutPage = () => {
           </div>
           <div className="relative h-80 rounded-3xl overflow-hidden shadow-2xl">
             <Image
-              src="/inquiry.png" // Replace with your image
+              src="/inquiry.png"
               alt="Our farming process"
               fill
               className="object-cover"
-              priority
-              sizes={"object-cover"}
-           
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
         </div>
       </section>
 
-      {/* 3. Core Values Grid */}
-      <section className=" mx-auto bg-gray-50 py-20">
-        <div className="w-[90%] mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold mb-12">What Drives Us</h2>
+      {/* 3. Core Values Grid - Width adjusted to w-[90%] max-w-6xl */}
+      <section className="bg-gray-50 py-20">
+        <div className="w-[90%] max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-gray-800">What Drives Us</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {values.map((value, index) => (
               <div
@@ -110,9 +107,9 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* 4. Impact Statistics Banner */}
+      {/* 4. Impact Statistics Banner - Width adjusted to w-[90%] max-w-6xl */}
       <section className="bg-green-700 py-16 text-white">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div className="w-[90%] max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
             <p className="text-4xl font-bold mb-2">15k+</p>
             <p className="text-green-100 text-sm uppercase tracking-wide font-medium">
@@ -140,9 +137,9 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* 5. Call to Action */}
-      <section className="py-20 text-center px-6">
-        <div className="max-w-3xl mx-auto">
+      {/* 5. Call to Action - Width adjusted to w-[90%] max-w-6xl */}
+      <section className="py-20 text-center">
+        <div className="w-[90%] max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Interested in our processes?
           </h2>
@@ -151,7 +148,7 @@ const AboutPage = () => {
             crops or reach out to partner with us.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href={'/contact'} className="bg-green-600 text-white px-10 py-4 rounded-full font-bold hover:bg-green-700 transition-all shadow-lg">
+            <Link href={'/contact'} className="bg-green-600 text-white px-10 py-4 rounded-full font-bold hover:bg-green-700 transition-all shadow-lg text-center">
               Contact Our Team
             </Link>
           </div>
