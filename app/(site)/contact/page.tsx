@@ -1,14 +1,49 @@
+"use client";
+
 import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const ContactPage = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("/api/inquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          phone,
+          message,
+        }),
+      });
+
+      if (response.ok) {
+        toast.success("Inquiry Sent !");
+      } else {
+        toast.error("Failed to send inquiry.");
+      }
+    } catch (error) {
+      toast.error("Failed to send inquiry.");
+      console.error(error);
+    }
+  };
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* 1. Hero Section - Standardized to Estate/About style */}
       <div className="relative w-full min-h-[40vh] flex items-center justify-center overflow-hidden">
         <Image
-          src="/hero.png" 
+          src="/hero.png"
           alt="Lush green tea plantation fields"
           fill
           className="object-cover"
@@ -30,11 +65,12 @@ const ContactPage = () => {
 
       {/* 2. Main Content Wrapper */}
       <div className="w-[90%] max-w-6xl mx-auto py-16 md:py-24">
-        
         {/* Head Office Header */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-10 border-b pb-6 border-gray-200">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Head Office</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+              Head Office
+            </h2>
             <p className="text-gray-500 mt-2 text-lg">
               Connect with us through any of these channels.
             </p>
@@ -113,7 +149,11 @@ const ContactPage = () => {
             </div>
           </div>
 
-          <a href="#" target="blank" className="relative z-10 bg-white text-green-700 px-8 py-4 rounded-full font-bold hover:bg-green-50 transition-colors shadow-lg">
+          <a
+            href="#"
+            target="blank"
+            className="relative z-10 bg-white text-green-700 px-8 py-4 rounded-full font-bold hover:bg-green-50 transition-colors shadow-lg"
+          >
             View on Google Maps
           </a>
         </div>
@@ -129,34 +169,95 @@ const ContactPage = () => {
               to you within one business day.
             </p>
 
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={(e) => handleSubmit(e)}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                  <input type="text" id="firstName" name="firstName" required className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500" />
+                  <label
+                    htmlFor="firstName"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    First Name
+                  </label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    required
+                    className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
                 </div>
                 <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                  <input type="text" id="lastName" name="lastName" className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500" />
+                  <label
+                    htmlFor="lastName"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                  />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                <input type="email" id="email" name="email" className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500" />
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                />
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                <input type="tel" id="phone" name="phone" required className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500" />
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Your Message</label>
-                <textarea id="message" name="message" rows={4} required className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 resize-none"></textarea>
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Your Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={4}
+                  required
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 resize-none"
+                ></textarea>
               </div>
 
-              <button type="submit" className="cursor-pointer w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-md text-lg font-semibold text-white bg-green-600 hover:bg-green-700 transition-colors">
+              <button
+                type="submit"
+                className="cursor-pointer w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-md text-lg font-semibold text-white bg-green-600 hover:bg-green-700 transition-colors"
+              >
                 Submit Inquiry
               </button>
             </form>
@@ -165,20 +266,25 @@ const ContactPage = () => {
           <div className="lg:col-span-1 flex flex-col items-center pt-8 lg:pt-0">
             <div className="relative w-full h-64 rounded-xl overflow-hidden shadow-lg mb-6">
               <Image
-                src="/pl3.png" 
+                src="/pl3.png"
                 alt="A young green seedling growing in dark soil"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 33vw"
               />
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-3 text-center">Join the Green Movement</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-3 text-center">
+              Join the Green Movement
+            </h3>
             <p className="text-gray-500 text-center text-sm">
               Join us in cultivating a greener future. Whether you're a farmer,
               or just passionate about agriculture, we love to hear your ideas
               and collaborate.
             </p>
-            <Link href="/about-us" className="mt-6 text-green-700 font-medium hover:text-green-800 transition-colors flex items-center gap-1">
+            <Link
+              href="/about-us"
+              className="mt-6 text-green-700 font-medium hover:text-green-800 transition-colors flex items-center gap-1"
+            >
               Learn About Our Mission &rarr;
             </Link>
           </div>
