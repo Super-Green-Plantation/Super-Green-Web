@@ -15,7 +15,7 @@ const ContactPage = () => {
           priority
           style={{ objectFit: "cover" }} // Ensures image covers the area without stretching
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/30 z-5"></div>
+        <div className="absolute inset-0 bg-linear-to-b from-black/60 to-black/30 z-5"></div>
 
         <div className="relative z-10 w-[90%] max-w-4xl text-center text-white">
           <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
@@ -111,9 +111,9 @@ const ContactPage = () => {
             </div>
           </div>
 
-          <button className="relative z-10 bg-white text-green-700 px-8 py-4 rounded-full font-bold hover:bg-green-50 transition-colors shadow-lg">
+          <a href="https://maps.app.goo.gl/CAmzurnq52cFjFfJ7" target="blank" className="relative z-10 bg-white text-green-700 px-8 py-4 rounded-full font-bold hover:bg-green-50 transition-colors shadow-lg">
             View on Google Maps
-          </button>
+          </a>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-100">

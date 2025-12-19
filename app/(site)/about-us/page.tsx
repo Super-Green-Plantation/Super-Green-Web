@@ -1,5 +1,6 @@
 import { Leaf, Target, Users } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const AboutPage = () => {
   const values = [
@@ -49,7 +50,7 @@ const AboutPage = () => {
       </section>
 
       {/* 2. Mission & Vision Section */}
-      <section className="max-w-6xl mx-auto px-6 py-20">
+      <section className="w-[90%] mx-auto px-6 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
             <span className="text-green-600 font-bold tracking-widest uppercase text-sm">
@@ -85,8 +86,8 @@ const AboutPage = () => {
       </section>
 
       {/* 3. Core Values Grid */}
-      <section className="bg-gray-50 py-20">
-        <div className="max-w-6xl mx-auto px-6 text-center">
+      <section className=" mx-auto bg-gray-50 py-20">
+        <div className="w-[90%] mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-12">What Drives Us</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {values.map((value, index) => (
@@ -150,9 +151,9 @@ const AboutPage = () => {
             crops or reach out to partner with us.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-green-600 text-white px-10 py-4 rounded-full font-bold hover:bg-green-700 transition-all shadow-lg">
+            <Link href={'/contact'} className="bg-green-600 text-white px-10 py-4 rounded-full font-bold hover:bg-green-700 transition-all shadow-lg">
               Contact Our Team
-            </button>
+            </Link>
           </div>
         </div>
       </section>
