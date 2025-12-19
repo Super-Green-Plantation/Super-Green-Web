@@ -1,13 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-interface Inquiry {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  message: string;
-}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();

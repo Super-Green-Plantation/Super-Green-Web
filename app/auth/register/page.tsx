@@ -1,51 +1,100 @@
 "use client";
 
-import { ArrowRight, Lock, Mail, Phone, ShieldCheck, User } from "lucide-react";
+import {
+  ArrowRight,
+  Eye,
+  EyeOff,
+  Lock,
+  Mail,
+  Phone,
+  ShieldCheck,
+  User,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { z } from "zod";
+
+const registerSchema = z
+  .object({
+    fullName: z.string().min(1, "Full name is required"),
+    email: z.string().email("Invalid email address"),
+    phone: z.string().min(10, "Phone number must be at least 10 digits"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
 
 const RegisterPage = () => {
   const [full_name, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const first_name = full_name.split(" ")[0] || "";
   const last_name = full_name.split(" ")[1] || "";
-  
+
   const router = useRouter();
 
   async function register(data: any) {
-  try {
     data.e.preventDefault(); // prevents page refresh
 
-    const response = await fetch("/api/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        first_name: data.first_name,
-        last_name: data.last_name,
-        email: data.email,
-        phone: data.phone,
-        password: data.password,
-      }),
+    const result = registerSchema.safeParse({
+      fullName: data.first_name + " " + data.last_name,
+      email: data.email,
+      phone: data.phone,
+      password: data.password,
+      confirmPassword: data.confirmPassword,
     });
 
-    if (response.ok) {
-      toast.success("Registered successfully!");
-      router.push('/auth/login');
-    } else {
-      toast.error("Registration failed!");
-    }
-  } catch (error) {
-    toast.error("Registration failed!");
-    console.error(error);
-  }
-}
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
 
+      result.error.issues.forEach((issue) => {
+        const fieldName = issue.path[0] as string;
+        fieldErrors[fieldName] = issue.message;
+      });
+
+      setErrors(fieldErrors);
+      return;
+    }
+
+    setErrors({});
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          first_name: data.first_name,
+          last_name: data.last_name,
+          email: data.email,
+          phone: data.phone,
+          password: data.password,
+        }),
+      });
+
+      if (response.ok) {
+        toast.success("Registered successfully!");
+        router.push("/auth/login");
+      } else {
+        toast.error("Registration failed!");
+      }
+    } catch (error) {
+      toast.error("Registration failed!");
+      console.error(error);
+    }
+  }
 
   return (
     <div className="min-h-screen w-screen grid grid-cols-1 lg:grid-cols-2">
@@ -115,8 +164,11 @@ const RegisterPage = () => {
               </p>
             </div>
 
-            <form className="space-y-5"
-            onSubmit={(e)=>register({ e,first_name, last_name, email, phone, password })}
+            <form
+              className="space-y-5"
+              onSubmit={(e) =>
+                register({ e, first_name, last_name, email, phone, password, confirmPassword })
+              }
             >
               {/* Full Name */}
               <div>
@@ -132,9 +184,13 @@ const RegisterPage = () => {
                     type="text"
                     placeholder="John Doe"
                     className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
-                    required
                     onChange={(e) => setFullName(e.target.value)}
                   />
+                  {errors.fullName && (
+                    <p className="text-sm text-red-600 mt-1">
+                      {errors.fullName}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -152,9 +208,11 @@ const RegisterPage = () => {
                     type="email"
                     placeholder="john@example.com"
                     className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
-                    required
                     onChange={(e) => setEmail(e.target.value)}
                   />
+                  {errors.email && (
+                    <p className="text-sm text-red-600 mt-1">{errors.email}</p>
+                  )}
                 </div>
               </div>
 
@@ -172,9 +230,11 @@ const RegisterPage = () => {
                     type="tel"
                     placeholder="+94 77 123 4567"
                     className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
-                    required
                     onChange={(e) => setPhone(e.target.value)}
                   />
+                  {errors.phone && (
+                    <p className="text-sm text-red-600 mt-1">{errors.phone}</p>
+                  )}
                 </div>
               </div>
 
@@ -189,14 +249,60 @@ const RegisterPage = () => {
                     size={18}
                   />
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"} // Dynamic type
                     placeholder="••••••••"
-                    className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
-                    required
+                    className="w-full pl-10 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition-all"
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  <button
+                    type="button" // Important: set type to button to prevent form submission
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-green-600 transition-colors"
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
                 </div>
               </div>
+
+              {errors.password && (
+                <p className="text-sm text-red-600 mt-1">{errors.password}</p>
+              )}
+
+              {/* Confirm Password */}
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 ml-1">
+                  Confirm Password
+                </label>
+                <div className="relative">
+                  <Lock
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                    size={18}
+                  />
+                  <input
+                    type={showConfirmPassword ? "text" : "password"} // Dynamic type
+                    placeholder="••••••••"
+                    className="w-full pl-10 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition-all"
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-green-600 transition-colors"
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff size={18} />
+                    ) : (
+                      <Eye size={18} />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {errors.confirmPassword && (
+                <p className="text-sm text-red-600 mt-1">
+                  {errors.confirmPassword}
+                </p>
+              )}
 
               {/* Terms Checkbox */}
               <div className="flex items-start gap-3 mt-2">
@@ -232,7 +338,6 @@ const RegisterPage = () => {
               <button
                 type="submit"
                 className="w-full group bg-green-700 hover:bg-green-800 text-white font-bold py-4 rounded-xl shadow-lg shadow-green-200 transition-all flex items-center justify-center gap-2"
-                
               >
                 Create Account
                 <ArrowRight

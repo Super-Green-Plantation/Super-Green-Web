@@ -5,6 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
+import { z } from "zod";
+
+const inquirySchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().optional(),
+  email: z.string().email("Invalid email address").optional(),
+  phone: z.string().min(1, "Phone number is required"),
+  message: z.string().min(1, "Message is required"),
+});
 
 const ContactPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -12,20 +21,43 @@ const ContactPage = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // 1 Validate using Zod
+    const result = inquirySchema.safeParse({
+      firstName,
+      lastName,
+      email,
+      phone,
+      message,
+    });
+
+    // 2 If validation fails
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+
+      result.error.issues.forEach((issue) => {
+        const fieldName = issue.path[0] as string;
+        fieldErrors[fieldName] = issue.message;
+      });
+
+      setErrors(fieldErrors);
+      return;
+    }
+
+    // 3 Clear errors if valid
+    setErrors({});
+
+    // 4 Submit to API
     try {
       const response = await fetch("/api/inquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          phone,
-          message,
-        }),
+        body: JSON.stringify(result.data), // ✅ validated data
       });
 
       if (response.ok) {
@@ -38,6 +70,7 @@ const ContactPage = () => {
       console.error(error);
     }
   };
+
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* 1. Hero Section - Standardized to Estate/About style */}
@@ -180,24 +213,21 @@ const ContactPage = () => {
                   </label>
                   <input
                     type="text"
-                    id="firstName"
-                    name="firstName"
-                    required
                     className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
                     onChange={(e) => setFirstName(e.target.value)}
                   />
+                  {errors.firstName && (
+                    <p className="text-sm text-red-600 mt-1">
+                      {errors.firstName}
+                    </p>
+                  )}
                 </div>
                 <div>
-                  <label
-                    htmlFor="lastName"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
                     Last Name
                   </label>
                   <input
                     type="text"
-                    id="lastName"
-                    name="lastName"
                     onChange={(e) => setLastName(e.target.value)}
                     className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
                   />
@@ -213,28 +243,26 @@ const ContactPage = () => {
                 </label>
                 <input
                   type="email"
-                  id="email"
-                  name="email"
                   onChange={(e) => setEmail(e.target.value)}
                   className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
                 />
+                {errors.email && (
+                  <p className="text-sm text-red-600 mt-1">{errors.email}</p>
+                )}
               </div>
 
               <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Phone Number
                 </label>
                 <input
                   type="tel"
-                  id="phone"
-                  name="phone"
-                  required
                   onChange={(e) => setPhone(e.target.value)}
                   className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
                 />
+                {errors.phone && (
+                  <p className="text-sm text-red-600 mt-1">{errors.phone}</p>
+                )}
               </div>
 
               <div>
@@ -248,10 +276,12 @@ const ContactPage = () => {
                   id="message"
                   name="message"
                   rows={4}
-                  required
                   onChange={(e) => setMessage(e.target.value)}
                   className="block w-full py-3 px-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 resize-none"
                 ></textarea>
+                {errors.message && (
+                  <p className="text-sm text-red-600 mt-1">{errors.message}</p>
+                )}
               </div>
 
               <button

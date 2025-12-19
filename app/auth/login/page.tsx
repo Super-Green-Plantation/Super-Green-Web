@@ -6,17 +6,40 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import z, { email } from "zod";
+
+const useSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<Record<string, string>>({});
 
   const router = useRouter();
 
   async function login(data: any) {
-    try {
-      data.e.preventDefault(); // prevent page refresh
+    data.e.preventDefault(); // prevent page refresh
 
+    // Validate input data
+    const validation = useSchema.safeParse({
+      email: data.email,
+      password: data.password,
+    });
+
+    if (!validation.success) {
+      const fieldErrors: Record<string, string> = {};
+
+      validation.error.issues.forEach((err) => {
+        const fieldName = err.path[0] as string;
+        fieldErrors[fieldName] = err.message;
+      });
+      setError(fieldErrors);
+      return;
+    }
+    try {
       const response = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -32,7 +55,7 @@ const LoginPage = () => {
       localStorage.setItem("token", token);
 
       console.log(token);
-      
+
       if (response.ok) {
         toast.success(result.message);
         router.push("/dashboard");
@@ -109,9 +132,12 @@ const LoginPage = () => {
                     type="email"
                     placeholder="name@company.com"
                     className="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none transition-all"
-                    required
+                    
                     onChange={(e) => setEmail(e.target.value)}
                   />
+                  {error.email && (
+                    <p className="text-red-500 text-xs mt-1">{error.email}</p>
+                  )}
                 </div>
               </div>
 
@@ -137,9 +163,15 @@ const LoginPage = () => {
                     type="password"
                     placeholder="••••••••"
                     className="w-full pl-11 pr-12 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none transition-all"
-                    required
+                    
                     onChange={(e) => setPassword(e.target.value)}
                   />
+
+                  {error.password && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {error.password}
+                    </p>
+                  )}
                   <button
                     type="button"
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
