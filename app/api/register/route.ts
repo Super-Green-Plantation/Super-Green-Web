@@ -5,14 +5,20 @@ import bcrypt from "bcryptjs";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+    const email = body.email;
 
     const password = body.password;
 
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
-    console.log(hash);
+    const existEmail = await prisma.user.findUnique({
+      where:{email}
+    })
 
+    if (existEmail) {
+      return NextResponse.json({message:"Already Registered !"})
+    }
     const user = await prisma.user.create({
       data: {
         first_name: body.first_name,
