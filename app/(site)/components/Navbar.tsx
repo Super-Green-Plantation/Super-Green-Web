@@ -21,6 +21,10 @@ const navItems = [
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const token = localStorage.getItem('token')
+  console.log(token);
+  
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
