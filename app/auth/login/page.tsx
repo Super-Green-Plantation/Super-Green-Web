@@ -8,13 +8,14 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import z from "zod";
+import { supabase } from "@/lib/supabase/client";
 
 const useSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
-const LoginPage = () => {
+const LoginPage =async () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<Record<string, string>>({});
@@ -74,6 +75,23 @@ const LoginPage = () => {
     }
   }
 
+  const signInWithGoogle = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${location.origin}/auth/callback`,
+      },
+    });
+  };
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  console.log(user?.email);
+  console.log(user?.user_metadata?.full_name);
+  console.log(user?.user_metadata?.avatar_url);
+
   return (
     <div className="w-full min-h-screen grid grid-cols-1 lg:grid-cols-2">
       {/* Left Side: Visual/Branding */}
@@ -86,7 +104,9 @@ const LoginPage = () => {
           priority
         />
         <div className="relative z-10 p-12 text-white max-w-lg">
-          <h1 className="text-4xl font-bold mb-4">Welcome Back to SuperGreen</h1>
+          <h1 className="text-4xl font-bold mb-4">
+            Welcome Back to SuperGreen
+          </h1>
           <p className="text-lg text-green-50 mb-8 font-light leading-relaxed">
             Log in to access your dashboard, manage your supply chain, and stay
             updated with our latest harvests.
@@ -175,7 +195,9 @@ const LoginPage = () => {
                   </button>
 
                   {error.password && (
-                    <p className="text-red-500 text-xs mt-1">{error.password}</p>
+                    <p className="text-red-500 text-xs mt-1">
+                      {error.password}
+                    </p>
                   )}
                 </div>
               </div>
@@ -227,7 +249,10 @@ const LoginPage = () => {
             </div>
 
             <div className="grid grid-cols-1 gap-3">
-              <button className="flex items-center justify-center gap-3 py-3.5 border border-gray-200 rounded-2xl hover:bg-gray-50 transition-all text-sm font-semibold text-gray-700">
+              <button
+                onClick={signInWithGoogle}
+                className="flex items-center justify-center gap-3 py-3.5 border border-gray-200 rounded-2xl hover:bg-gray-50 transition-all text-sm font-semibold text-gray-700"
+              >
                 <img src="/google.jpg" alt="Google" className="w-5 h-5" />
                 Sign in with Google
               </button>
