@@ -1,6 +1,7 @@
 "use client";
 
 import { Spinner } from "@/components/ui/spinner";
+import { supabase } from "@/lib/supabase/client";
 import {
   ArrowRight,
   Eye,
@@ -31,7 +32,7 @@ const registerSchema = z
     path: ["confirmPassword"],
   });
 
-const RegisterPage = () => {
+const RegisterPage = async () => {
   const [full_name, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -110,6 +111,17 @@ const RegisterPage = () => {
       console.error(error);
     }
   }
+
+  const signUpWithGoogle = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${location.origin}/auth/callback`,
+      },
+    });
+  };
+
+  const {data: { user },} = await supabase.auth.getUser();
 
   return (
     <div className="min-h-screen w-screen grid grid-cols-1 lg:grid-cols-2">
@@ -396,7 +408,10 @@ const RegisterPage = () => {
 
             {/* Social Buttons */}
             <div className="grid grid-cols-2 gap-4">
-              <button className="flex items-center justify-center gap-2 py-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium">
+              <button
+                onClick={signUpWithGoogle}
+                className="flex items-center justify-center gap-2 py-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium"
+              >
                 <img src="/google.jpg" alt="Google" className="w-5 h-5" />{" "}
                 Google
               </button>
