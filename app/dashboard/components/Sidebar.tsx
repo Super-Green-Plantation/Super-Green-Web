@@ -1,7 +1,14 @@
 "use client";
 
 import { getUserdata } from "@/lib/userData";
-import { ChevronLeft, ChevronRight, Home, Settings, User } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Home,
+  LogOut,
+  Settings,
+  User,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -20,6 +27,10 @@ export default function Sidebar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [firstName, setFirstName] = useState("");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -89,14 +100,32 @@ export default function Sidebar() {
       </div>
 
       {/* Collapse Button */}
-      <div className="flex justify-center py-4">
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="bg-gray-700 p-2 rounded-full hover:bg-gray-600 transition"
-          title={collapsed ? "Expand" : "Collapse"}
-        >
-          {collapsed ? <ChevronRight /> : <ChevronLeft />}
-        </button>
+      <div className="">
+        <div className="border-t border-gray-700 pt-4 flex items-center gap-3 px-4 py-2 cursor-pointer">
+          {collapsed ? (
+            <Link href="/auth/login" onClick={() => handleLogout()}>
+              <LogOut className="w-5 h-5 text-red-300" />
+            </Link>
+          ) : (
+            <Link
+              href="/auth/login"
+              className="flex px-4 py-2 text-sm font-medium text-white items-center bg-red-600/60 w-full rounded-md"
+            >
+              <LogOut className="w-5 h-5 text-red-300 mr-5" />
+              Logout
+            </Link>
+          )}
+          {/* <LogOut className="w-5 h-5 text-red-300" /> */}
+        </div>
+        <div className="flex justify-end px-2 py-4">
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="bg-gray-700 p-2 rounded-full hover:bg-gray-600 transition"
+            title={collapsed ? "Expand" : "Collapse"}
+          >
+            {collapsed ? <ChevronRight /> : <ChevronLeft />}
+          </button>
+        </div>
       </div>
     </aside>
   );

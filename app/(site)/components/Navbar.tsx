@@ -26,6 +26,10 @@ const navItems = [
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [logged, setLogged] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+
+  const [firstName, setFirstName] = useState<string | null>(null);
+  const first_letter = firstName ? firstName.charAt(0).toUpperCase() : "";
 
   useEffect(() => {
     const token = localStorage.getItem("token"); // token can be null
@@ -36,6 +40,7 @@ export default function NavBar() {
     if (user) {
       setLogged(true);
       console.log(user.firstName);
+      setFirstName(user.firstName);
     }
 
     if (user !== null) {
@@ -84,21 +89,47 @@ export default function NavBar() {
 
           {/* Desktop Action Buttons */}
           {logged ? (
-            <div className="hidden md:flex space-x-3">
-              <Link
-                href="/dashboard"
-                className="py-2 px-4 rounded-lg text-white font-bold text-sm bg-green-600 hover:bg-green-700 shadow-md shadow-black/40"
+            <div className="hidden md:flex relative">
+              {/* Avatar Button */}
+              <button
+                onClick={() => setProfileOpen((prev) => !prev)}
+                className="w-10 h-10 rounded-full bg-green-600 text-white font-bold flex items-center justify-center hover:bg-green-700 transition"
               >
-                Dashboard
-              </Link>
+                {first_letter}
+              </button>
+
+              {/* Dropdown */}
+              {profileOpen && (
+                <div className="absolute right-0 mt-12 w-44 bg-white rounded-lg shadow-xl overflow-hidden z-50">
+                  <Link
+                    href="/dashboard"
+                    className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setProfileOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+
+                  <button
+                    onClick={() => {
+                      localStorage.removeItem("token");
+                      setLogged(false);
+                      setFirstName(null);
+                      setProfileOpen(false);
+                    }}
+                    className="w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-gray-100"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <div className="hidden md:flex space-x-3">
               <Link
-                href="/auth/register"
+                href="/auth/login"
                 className="py-2 px-4 rounded-lg text-white font-bold text-sm bg-green-600 hover:bg-green-700 shadow-md shadow-black/40"
               >
-                Register
+                Login
               </Link>
             </div>
           )}

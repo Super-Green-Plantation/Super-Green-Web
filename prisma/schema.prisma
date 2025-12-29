@@ -1,12 +1,15 @@
 
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
+        
 
 model Estate {
   id          Int      @id @default(autoincrement())
@@ -28,6 +31,8 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   emailVerified Boolean   @default(false)
+
+  inquiries     Inquiry[]   // 👈 inverse relation
 }
 
 model Inquiry {
@@ -38,4 +43,7 @@ model Inquiry {
   phone     String
   message   String
   createdAt DateTime @default(now())
+  
+  user_id   Int?
+  user      User?    @relation(fields: [user_id], references: [id])
 }
