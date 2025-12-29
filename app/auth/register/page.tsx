@@ -32,7 +32,7 @@ const registerSchema = z
     path: ["confirmPassword"],
   });
 
-const RegisterPage = async () => {
+const RegisterPage = () => { // Remove 'async' - client components can't be async
   const [full_name, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -46,12 +46,13 @@ const RegisterPage = async () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const first_name = full_name.split(" ")[0] || "";
-  const last_name = full_name.split(" ")[1] || "";
+  const last_name = full_name.split(" ").slice(1).join(" ") || "";
 
   const router = useRouter();
 
   async function register(data: any) {
-    data.e.preventDefault(); // prevents page refresh
+    data.e.preventDefault();
+    setLoad(true);
 
     const result = registerSchema.safeParse({
       fullName: data.first_name + " " + data.last_name,
@@ -63,48 +64,65 @@ const RegisterPage = async () => {
 
     if (!result.success) {
       const fieldErrors: Record<string, string> = {};
-
       result.error.issues.forEach((issue) => {
         const fieldName = issue.path[0] as string;
         fieldErrors[fieldName] = issue.message;
       });
-
       setLoad(false);
       setErrors(fieldErrors);
       return;
     }
 
     setErrors({});
+    
     try {
-      const response = await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          first_name: data.first_name,
-          last_name: data.last_name,
-          email: data.email,
-          phone: data.phone,
-          password: data.password,
-        }),
+      // Sign up with Supabase Auth
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+        options: {
+          data: {
+            first_name: data.first_name,
+            last_name: data.last_name,
+            phone: data.phone,
+          },
+          emailRedirectTo: `${location.origin}/auth/callback`,
+        },
       });
 
-      if (response.status === 409) {
+      if (authError) {
         setLoad(false);
-
-        toast.error("Email already registered");
+        
+        if (authError.message.includes("already registered")) {
+          toast.error("Email already registered");
+        } else {
+          toast.error(authError.message);
+        }
         return;
       }
 
-      if (!response.ok) {
-        setLoad(false);
+      // Create user record in your database via API
+      if (authData.user) {
+        const response = await fetch("/api/users/create", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id: authData.user.id, // Use Supabase auth user ID
+            first_name: data.first_name,
+            last_name: data.last_name,
+            email: data.email,
+            phone: data.phone,
+          }),
+        });
 
-        toast.error("Registration failed");
-        return;
+        if (!response.ok) {
+          console.error("Failed to create user record in database");
+        }
       }
 
-      toast.success("Registered successfully");
+      toast.success("Registration successful! Please check your email to verify your account.");
       setLoad(false);
-      router.push("/auth/login");
+      router.push("/auth/verify-email");
     } catch (error) {
       setLoad(false);
       toast.error("Registration failed!");
@@ -121,14 +139,12 @@ const RegisterPage = async () => {
     });
   };
 
-  const {data: { user },} = await supabase.auth.getUser();
-
   return (
     <div className="min-h-screen w-screen grid grid-cols-1 lg:grid-cols-2">
       {/* Left Side: Visual/Branding (Hidden on Mobile) */}
       <div className="relative hidden lg:flex items-center justify-center bg-green-900">
         <Image
-          src="/inquiry.png" // Replace with a high-quality field or seedling image
+          src="/inquiry.png"
           alt="Sustainable farming"
           fill
           className="object-cover opacity-30"
@@ -284,24 +300,23 @@ const RegisterPage = async () => {
                     size={18}
                   />
                   <input
-                    type={showPassword ? "text" : "password"} // Dynamic type
+                    type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
                     className="w-full pl-10 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition-all"
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <button
-                    type="button" // Important: set type to button to prevent form submission
+                    type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-green-600 transition-colors"
                   >
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
                 </div>
+                {errors.password && (
+                  <p className="text-sm text-red-600 mt-1">{errors.password}</p>
+                )}
               </div>
-
-              {errors.password && (
-                <p className="text-sm text-red-600 mt-1">{errors.password}</p>
-              )}
 
               {/* Confirm Password */}
               <div>
@@ -314,7 +329,7 @@ const RegisterPage = async () => {
                     size={18}
                   />
                   <input
-                    type={showConfirmPassword ? "text" : "password"} // Dynamic type
+                    type={showConfirmPassword ? "text" : "password"}
                     placeholder="••••••••"
                     className="w-full pl-10 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition-all"
                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -331,13 +346,12 @@ const RegisterPage = async () => {
                     )}
                   </button>
                 </div>
+                {errors.confirmPassword && (
+                  <p className="text-sm text-red-600 mt-1">
+                    {errors.confirmPassword}
+                  </p>
+                )}
               </div>
-
-              {errors.confirmPassword && (
-                <p className="text-sm text-red-600 mt-1">
-                  {errors.confirmPassword}
-                </p>
-              )}
 
               {/* Terms Checkbox */}
               <div className="flex items-start gap-3 mt-2">
@@ -370,28 +384,26 @@ const RegisterPage = async () => {
               </div>
 
               {/* Submit Button */}
-              {load ? (
-                <button
-                  type="submit"
-                  className="w-full group bg-green-700 hover:bg-green-800 text-white font-bold py-4 rounded-xl shadow-lg shadow-green-200 transition-all flex items-center justify-center gap-2"
-                  onClick={() => setLoad(true)}
-                >
-                  Registering ...
-                  <Spinner className="w-5 h-5 border-white" />
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  className="w-full group bg-green-700 hover:bg-green-800 text-white font-bold py-4 rounded-xl shadow-lg shadow-green-200 transition-all flex items-center justify-center gap-2"
-                  onClick={() => setLoad(true)}
-                >
-                  Create Account
-                  <ArrowRight
-                    size={18}
-                    className="group-hover:translate-x-1 transition-transform"
-                  />
-                </button>
-              )}
+              <button
+                type="submit"
+                disabled={load}
+                className="w-full group bg-green-700 hover:bg-green-800 text-white font-bold py-4 rounded-xl shadow-lg shadow-green-200 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {load ? (
+                  <>
+                    Registering ...
+                    <Spinner className="w-5 h-5 border-white" />
+                  </>
+                ) : (
+                  <>
+                    Create Account
+                    <ArrowRight
+                      size={18}
+                      className="group-hover:translate-x-1 transition-transform"
+                    />
+                  </>
+                )}
+              </button>
             </form>
 
             {/* Social Login Divider */}

@@ -1,7 +1,7 @@
 "use client";
 
 import { Spinner } from "@/components/ui/spinner";
-import { ArrowRight, Eye, EyeOff, Lock, Mail } from "lucide-react"; // Added Eye
+import { ArrowRight, Eye, EyeOff, Lock, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -15,20 +15,18 @@ const useSchema = z.object({
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
-const LoginPage =async () => {
+const LoginPage = () => { // Remove 'async' - client components can't be async
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<Record<string, string>>({});
   const [load, setLoad] = useState(false);
-
-  // Password visibility state
   const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
 
   async function login(data: any) {
     data.e.preventDefault();
-    setLoad(true); // Start loading at the beginning of the function
+    setLoad(true);
     setError({});
 
     const validation = useSchema.safeParse({
@@ -43,30 +41,27 @@ const LoginPage =async () => {
         fieldErrors[fieldName] = err.message;
       });
       setError(fieldErrors);
-      setLoad(false); // Stop loading if validation fails
+      setLoad(false);
       return;
     }
 
     try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: data.email,
-          password: data.password,
-        }),
+      // Sign in with Supabase Auth
+      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+        email: data.email,
+        password: data.password,
       });
 
-      const result = await response.json();
-
-      if (response.ok) {
-        const token = result.token;
-        localStorage.setItem("token", token);
-        toast.success(result.message || "Login successful!");
-        router.push("/dashboard");
-      } else {
-        toast.error(result.message || "Invalid credentials");
+      if (authError) {
         setLoad(false);
+        toast.error(authError.message || "Invalid credentials");
+        return;
+      }
+
+      if (authData.user) {
+        toast.success("Login successful!");
+        router.push("/dashboard");
+        router.refresh(); // Refresh to update session
       }
     } catch (error) {
       toast.error("Login failed, try again!");
@@ -76,21 +71,17 @@ const LoginPage =async () => {
   }
 
   const signInWithGoogle = async () => {
-    await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         redirectTo: `${location.origin}/auth/callback`,
       },
     });
+
+    if (error) {
+      toast.error("Failed to sign in with Google");
+    }
   };
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  console.log(user?.email);
-  console.log(user?.user_metadata?.full_name);
-  console.log(user?.user_metadata?.avatar_url);
 
   return (
     <div className="w-full min-h-screen grid grid-cols-1 lg:grid-cols-2">
@@ -180,14 +171,14 @@ const LoginPage =async () => {
                     size={20}
                   />
                   <input
-                    type={showPassword ? "text" : "password"} // Dynamic type
+                    type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
                     className="w-full pl-11 pr-12 py-3.5 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none transition-all"
                     onChange={(e) => setPassword(e.target.value)}
                   />
 
                   <button
-                    type="button" // Prevents form trigger
+                    type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                   >
