@@ -13,7 +13,7 @@ interface MobileSidebarProps {
 
 const menuItems = [
   { name: "Dashboard", href: "/dashboard", icon: Home },
-  { name: "Users", href: "/dashboard/users", icon: User },
+  { name: "Profile", href: "/dashboard/profile", icon: User },
   { name: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 

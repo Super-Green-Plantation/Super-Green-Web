@@ -1,7 +1,7 @@
 "use client";
 
 import { Spinner } from "@/components/ui/spinner";
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 import {
   ArrowRight,
   Eye,
@@ -32,7 +32,7 @@ const registerSchema = z
     path: ["confirmPassword"],
   });
 
-const RegisterPage = () => { // Remove 'async' - client components can't be async
+const RegisterPage = () => {
   const [full_name, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -49,6 +49,7 @@ const RegisterPage = () => { // Remove 'async' - client components can't be asyn
   const last_name = full_name.split(" ").slice(1).join(" ") || "";
 
   const router = useRouter();
+  const supabase = createClient();
 
   async function register(data: any) {
     data.e.preventDefault();
@@ -74,9 +75,10 @@ const RegisterPage = () => { // Remove 'async' - client components can't be asyn
     }
 
     setErrors({});
-    
+
     try {
-      // Sign up with Supabase Auth
+      console.log("🔵 Attempting signup with:", { email: data.email });
+
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
@@ -86,57 +88,44 @@ const RegisterPage = () => { // Remove 'async' - client components can't be asyn
             last_name: data.last_name,
             phone: data.phone,
           },
-          emailRedirectTo: `${location.origin}/auth/callback`,
         },
+      });
+
+      console.log("🟢 Supabase auth response:", {
+        user: authData?.user?.id,
+        session: authData?.session,
+        error: authError,
       });
 
       if (authError) {
         setLoad(false);
-        
-        if (authError.message.includes("already registered")) {
-          toast.error("Email already registered");
-        } else {
-          toast.error(authError.message);
-        }
+        toast.error(authError.message);
         return;
       }
 
-      // Create user record in your database via API
       if (authData.user) {
-        const response = await fetch("/api/users/create", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            id: authData.user.id, // Use Supabase auth user ID
-            first_name: data.first_name,
-            last_name: data.last_name,
-            email: data.email,
-            phone: data.phone,
-          }),
-        });
-
-        if (!response.ok) {
-          console.error("Failed to create user record in database");
-        }
+        toast.success("Registration successful!");
+        setLoad(false);
+        router.push("/auth/login");
       }
-
-      toast.success("Registration successful! Please check your email to verify your account.");
-      setLoad(false);
-      router.push("/auth/verify-email");
     } catch (error) {
+      console.error("🔴 Registration error:", error);
       setLoad(false);
       toast.error("Registration failed!");
-      console.error(error);
     }
   }
 
   const signUpWithGoogle = async () => {
-    await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         redirectTo: `${location.origin}/auth/callback`,
       },
     });
+
+    if (error) {
+      toast.error("Failed to sign in with Google");
+    }
   };
 
   return (
@@ -149,7 +138,7 @@ const RegisterPage = () => { // Remove 'async' - client components can't be asyn
           fill
           className="object-cover opacity-30"
           priority
-          sizes="object-cover"
+          sizes="50vw"
         />
         <div className="relative z-10 p-12 text-white max-w-lg">
           <div className="bg-white/20 backdrop-blur-md p-2 w-fit rounded-lg mb-6">
@@ -234,6 +223,7 @@ const RegisterPage = () => { // Remove 'async' - client components can't be asyn
                   <input
                     type="text"
                     placeholder="John Doe"
+                    value={full_name}
                     className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
                     onChange={(e) => setFullName(e.target.value)}
                   />
@@ -256,8 +246,9 @@ const RegisterPage = () => { // Remove 'async' - client components can't be asyn
                     size={18}
                   />
                   <input
-                    type="text"
+                    type="email"
                     placeholder="john@example.com"
+                    value={email}
                     className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -280,6 +271,7 @@ const RegisterPage = () => { // Remove 'async' - client components can't be asyn
                   <input
                     type="tel"
                     placeholder="+94 77 123 4567"
+                    value={phone}
                     className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
                     onChange={(e) => setPhone(e.target.value)}
                   />
@@ -302,6 +294,7 @@ const RegisterPage = () => { // Remove 'async' - client components can't be asyn
                   <input
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
+                    value={password}
                     className="w-full pl-10 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition-all"
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -331,6 +324,7 @@ const RegisterPage = () => { // Remove 'async' - client components can't be asyn
                   <input
                     type={showConfirmPassword ? "text" : "password"}
                     placeholder="••••••••"
+                    value={confirmPassword}
                     className="w-full pl-10 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition-all"
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
@@ -387,7 +381,7 @@ const RegisterPage = () => { // Remove 'async' - client components can't be asyn
               <button
                 type="submit"
                 disabled={load}
-                className="w-full group bg-green-700 hover:bg-green-800 text-white font-bold py-4 rounded-xl shadow-lg shadow-green-200 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full group bg-green-700 hover:bg-green-800 text-white font-bold py-4 rounded-xl shadow-lg shadow-green-200 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {load ? (
                   <>

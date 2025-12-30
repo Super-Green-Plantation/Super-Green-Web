@@ -1,12 +1,13 @@
 "use client";
 
 import { Spinner } from "@/components/ui/spinner";
+import { supabase } from "@/lib/supabase/client";
 import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
-import { z } from "zod";
+import { set, z } from "zod";
 
 const inquirySchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -29,6 +30,8 @@ const ContactPage = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+  
 
     // 1 Validate using Zod
     const result = inquirySchema.safeParse({
@@ -71,9 +74,25 @@ const ContactPage = () => {
         setLoad(false);
         toast.error("Failed to send inquiry.");
       }
-    } catch (error) {
+
+      // const { error } = await supabase.from("Inquiry").insert({
+      //   first_name: firstName,
+      //   last_name: lastName,
+      //   email: email,
+      //   phone: phone,
+      //   message: message,
+      // });
+
+      // if (error) {
+      //   return toast.error("Failed to send inquiry.");
+      // }
+
+      // toast.success("Inquiry Sent !");
+
       setLoad(false);
+    } catch (error) {
       toast.error("Failed to send inquiry.");
+      setLoad(false);
       console.error(error);
     }
   };
@@ -297,8 +316,8 @@ const ContactPage = () => {
                   className="cursor-pointer w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-full shadow-md text-lg font-semibold text-white bg-green-600 hover:bg-green-700 transition-colors"
                   onClick={() => setLoad(true)}
                 >
-                  Submiting  
-                  <Spinner className="w-5 h-5 border-white "/>
+                  Submiting
+                  <Spinner className="w-5 h-5 border-white " />
                 </button>
               ) : (
                 <button
