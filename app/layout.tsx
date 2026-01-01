@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Super Green Plantation",
   description: "Super Green Plantation - Your Trusted Partner in Sustainable Agriculture",
   icons: {
-    icon: "/favicon.png",
+    icon: "/icon.png",
   },
 };
 
