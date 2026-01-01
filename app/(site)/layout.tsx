@@ -13,7 +13,7 @@ export default function RootLayout({
     
       <div >
         <NavBar/>
-        <main className="pt-14 grow ">
+        <main className="grow ">
           {children}
         </main>
 

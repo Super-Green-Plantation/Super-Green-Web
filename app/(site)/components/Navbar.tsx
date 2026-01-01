@@ -44,8 +44,8 @@ export default function NavBar() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-green-700/80 to-green-900/80 backdrop-blur-md shadow-lg">
-      <nav className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <header className="mx-5 lg:mx-70 rounded-2xl md:my-5 my-3 fixed top-0 left-0 right-0 z-50 bg-linear-to-r from-green-700/30 to-green-700/40 backdrop-blur-sm shadow-lg">
+      <nav className="max-w-6xl mx-auto px-4 py-3 mt-0 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
           <Image src={LOGO_PATH} alt="Logo" width={38} height={38} />
@@ -117,7 +117,7 @@ export default function NavBar() {
 
       {/* 📱 Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-green-900/95 backdrop-blur-md px-4 pb-6">
+        <div className="md:hidden bg-green-900/95 rounded-b-2xl backdrop-blur-md px-4 pb-6">
           <div className="flex flex-col gap-3 pt-4">
             {navItems.map((item) => (
               <Link
