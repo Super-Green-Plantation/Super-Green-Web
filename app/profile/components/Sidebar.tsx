@@ -14,9 +14,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const menuItems = [
-  { name: "Dashboard", href: "/dashboard", icon: Home },
-  { name: "Profile", href: "/dashboard/profile", icon: User },
-  { name: "Settings", href: "/dashboard/settings", icon: Settings },
+  { name: "Profile", href: "/profile", icon: Home },
+  
 ];
 
 export default function Sidebar() {

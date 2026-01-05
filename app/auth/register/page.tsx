@@ -413,7 +413,7 @@ const RegisterPage = () => {
             </div>
 
             {/* Social Buttons */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4">
               <button
                 onClick={signUpWithGoogle}
                 className="flex items-center justify-center gap-2 py-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium"
@@ -421,10 +421,7 @@ const RegisterPage = () => {
                 <img src="/google.jpg" alt="Google" className="w-5 h-5" />{" "}
                 Google
               </button>
-              <button className="flex items-center justify-center gap-2 py-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium">
-                <img src="/fb.webp" alt="Facebook" className="w-5 h-5" />{" "}
-                Facebook
-              </button>
+              
             </div>
           </div>
         </div>

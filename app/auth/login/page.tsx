@@ -60,7 +60,7 @@ const LoginPage = () => { // Remove 'async' - client components can't be async
 
       if (authData.user) {
         toast.success("Login successful!");
-        router.push("/dashboard");
+        router.push("/profile");
         router.refresh(); // Refresh to update session
       }
     } catch (error) {

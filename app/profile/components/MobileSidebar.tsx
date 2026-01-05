@@ -12,9 +12,8 @@ interface MobileSidebarProps {
 }
 
 const menuItems = [
-  { name: "Dashboard", href: "/dashboard", icon: Home },
-  { name: "Profile", href: "/dashboard/profile", icon: User },
-  { name: "Settings", href: "/dashboard/settings", icon: Settings },
+  { name: "Dashboard", href: "/dashboard", icon: Home }
+ 
 ];
 
 export default function MobileSidebar({ open, onClose }: MobileSidebarProps) {
