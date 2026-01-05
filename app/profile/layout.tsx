@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { Menu } from 'lucide-react';
-import { useState } from 'react';
-import Sidebar from './components/Sidebar';
-import MobileSidebar from './components/MobileSidebar';
+import { Menu } from "lucide-react";
+import { useState } from "react";
+import Sidebar from "./components/Sidebar";
+import MobileSidebar from "./components/MobileSidebar";
 
-export default function DashboardLayout({
+export default  function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -18,10 +18,7 @@ export default function DashboardLayout({
       <Sidebar />
 
       {/* Mobile Sidebar */}
-      <MobileSidebar
-        open={mobileOpen}
-        onClose={() => setMobileOpen(false)}
-      />
+      <MobileSidebar open={mobileOpen} onClose={() => setMobileOpen(false)} />
 
       {/* Main */}
       <div className="flex-1">
@@ -33,9 +30,7 @@ export default function DashboardLayout({
           <span className="font-semibold">Dashboard</span>
         </header>
 
-        <main className="p-6 bg-gray-100 min-h-screen">
-          {children}
-        </main>
+        <main className="p-6 bg-gray-100 min-h-screen">{children}</main>
       </div>
     </div>
   );

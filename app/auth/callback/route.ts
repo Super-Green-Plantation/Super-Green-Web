@@ -38,5 +38,5 @@ export async function GET(request: Request) {
   }
 
   // Redirect to dashboard after successful login
-  return NextResponse.redirect(`${origin}/profile`);
+  return NextResponse.redirect(`${origin}/`);
 }

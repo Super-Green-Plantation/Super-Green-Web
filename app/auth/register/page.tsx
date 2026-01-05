@@ -106,7 +106,7 @@ const RegisterPage = () => {
       if (authData.user) {
         toast.success("Registration successful!");
         setLoad(false);
-        router.push("/auth/login");
+        router.push("/");
       }
     } catch (error) {
       console.error("🔴 Registration error:", error);
@@ -181,20 +181,10 @@ const RegisterPage = () => {
           </div>
 
           <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100">
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900">
+            
+              <h2 className="text-2xl font-bold text-gray-900 mb-8">
                 Create Account
               </h2>
-              <p className="text-gray-500 text-sm mt-1">
-                Already have an account?
-                <Link
-                  href="/auth/login"
-                  className="text-green-600 font-semibold hover:underline ml-1"
-                >
-                  Log in
-                </Link>
-              </p>
-            </div>
 
             <form
               className="space-y-5"
@@ -421,7 +411,6 @@ const RegisterPage = () => {
                 <img src="/google.jpg" alt="Google" className="w-5 h-5" />{" "}
                 Google
               </button>
-              
             </div>
           </div>
         </div>

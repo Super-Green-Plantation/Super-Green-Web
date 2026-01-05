@@ -15,7 +15,7 @@ const useSchema = z.object({
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
-const LoginPage = () => { // Remove 'async' - client components can't be async
+const LoginPage = () => { 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<Record<string, string>>({});
@@ -60,7 +60,7 @@ const LoginPage = () => { // Remove 'async' - client components can't be async
 
       if (authData.user) {
         toast.success("Login successful!");
-        router.push("/profile");
+        router.push("/");
         router.refresh(); // Refresh to update session
       }
     } catch (error) {

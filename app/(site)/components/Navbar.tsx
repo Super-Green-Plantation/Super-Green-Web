@@ -80,13 +80,13 @@ export default function NavBar() {
 
               {profileOpen && (
                 <div className="absolute right-0 top-12 w-44 bg-white rounded-lg shadow-xl overflow-hidden">
-                  <Link
+                  {/* <Link
                     href="/profile"
                     className="block px-4 py-3 text-sm hover:bg-gray-100"
                     onClick={() => setProfileOpen(false)}
                   >
                     Dashboard
-                  </Link>
+                  </Link> */}
                   <button
                     onClick={logout}
                     className="w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-gray-100"
@@ -98,10 +98,10 @@ export default function NavBar() {
             </>
           ) : (
             <Link
-              href="/auth/login"
+              href="/auth/register"
               className="px-4 py-2 text-sm font-bold text-white bg-green-600 rounded-lg hover:bg-green-700"
             >
-              Login
+              Register Now
             </Link>
           )}
         </div>
