@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   const { data, error } = await resend.emails.send({
   from: "Acme <onboarding@resend.dev>",
   to: email,
-  subject: "Login to your account",
+  subject: "Super Green Plantation",
   react: (
     <NotionMagicLinkEmail username={username} />
   ),

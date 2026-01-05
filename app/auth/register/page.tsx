@@ -106,6 +106,18 @@ const RegisterPage = () => {
       if (authData.user) {
         toast.success("Registration successful!");
         setLoad(false);
+
+        fetch("/api/mail", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: data.email,
+            username: data.first_name,
+          }),
+        });
+
         router.push("/");
       }
     } catch (error) {
