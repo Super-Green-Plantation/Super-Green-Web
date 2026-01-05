@@ -42,7 +42,7 @@ const Estate = () => {
           style={{ objectFit: "cover" }} // Ensures image covers the area without stretching
           priority // Load image early as it's the main hero image
         />
-        <div className="absolute inset-0 bg-black opacity-30 z-5"></div>
+        <div className="absolute inset-0 bg-black/50  z-5"></div>
         <div className="relative z-10 w-[90%] flex-col flex justify-center max-w-6xl mx-auto py-20 md:py-32 text-white items-center">
           <h2 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
             Our Estates

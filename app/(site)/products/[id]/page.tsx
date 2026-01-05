@@ -3,6 +3,7 @@
 import React from 'react'
 import Link from "next/link";
 import { plansData } from '../plansData';
+import { CircleAlert } from 'lucide-react';
 
 // --- Types based on your data structure ---
 interface DetailBoxProps {
@@ -12,7 +13,7 @@ interface DetailBoxProps {
 
 // --- Reusable Stats Component ---
 const DetailBox: React.FC<DetailBoxProps> = ({ label, value }) => (
-  <div className="bg-green-800 text-white p-4 sm:p-6 rounded-lg shadow-lg flex flex-col justify-center items-center text-center h-full min-h-[100px] transition duration-300 hover:bg-green-700">
+  <div className="bg-green-800 text-white p-4 sm:p-6 rounded-lg shadow-lg flex flex-col justify-center items-center text-center h-full min-h-25 transition duration-300 hover:bg-green-700">
     <p className="text-xl sm:text-2xl font-bold">{value}</p>
     <p className="text-sm sm:text-base opacity-90 mt-1">{label}</p>
   </div>
@@ -117,11 +118,7 @@ const PlanDetailsPage = ({ params }: { params: { id: string } }) => {
                         <ul className="space-y-3">
                             {plan.rules?.map((rule, index) => (
                                 <li key={index} className="flex items-start">
-                                    <span className="text-red-500 mr-3 mt-1 flex-shrink-0">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                                        </svg>
-                                    </span>
+                                    <CircleAlert className='mr-5 text-red-500'/>
                                     <span className="text-gray-700 text-sm md:text-base leading-relaxed">{rule}</span>
                                 </li>
                             ))}
@@ -134,24 +131,19 @@ const PlanDetailsPage = ({ params }: { params: { id: string } }) => {
       </section>
 
       {/* --- CTA FOOTER --- */}
-      <footer className="bg-green-800 text-white text-center py-20 mt-10">
+      <footer className="px-2 bg-green-800 text-white text-center py-20 mt-10">
         <h3 className="text-2xl md:text-3xl font-bold mb-6">
-          Ready to secure your future with the {plan.name}?
+          Ready to secure your future with the {plan.name} ?
         </h3>
         <p className="mb-10 text-green-100 max-w-2xl mx-auto px-4">
             Contact us today to set up your savings plan. Our agents are ready to assist you with the paperwork and details.
         </p>
-        <div className="flex justify-center gap-4">
-            <button
-            className="bg-white text-green-800 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition duration-300"
-            >
-            Apply Now
-            </button>
+        <div className="flex-col justify-center items-center">
             <Link 
                 href="/contact"
-                className="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-green-800 transition duration-300"
+                className="bg-white text-green-800 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition duration-300"
             >
-                Contact Support
+                Contact Us
             </Link>
         </div>
       </footer>
