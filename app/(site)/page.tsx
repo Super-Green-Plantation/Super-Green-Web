@@ -2,7 +2,7 @@ import Estates from "./components/Estates";
 import HeroSection from "./components/HeroSection";
 import Investment from "./components/Investment";
 import Loan from "./components/Loan";
-import HomePlanCards from "./plan/HomePlan";
+import HomePlanCards from "./products/page";
 
 const page = () => {
   return (
@@ -10,7 +10,7 @@ const page = () => {
       <HeroSection />
       <Estates />
       <Investment />
-      <HomePlanCards/>
+      <HomePlanCards />
       <Loan />
     </div>
   );

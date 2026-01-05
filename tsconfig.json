@@ -37,7 +37,7 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "next.config.cjs", "app/(site)/plan/plansData.js"  ],
+, "next.config.cjs", "app/(site)/products/plansData.ts"  ],
   "exclude": [
     "node_modules"
   ]
