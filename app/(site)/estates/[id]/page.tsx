@@ -14,11 +14,7 @@ const DetailBox: React.FC<DetailBoxProps> = ({ label, value }) => (
   </div>
 );
 
-export default function EstateDetailsPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default function EstateDetailsPage({ params,}: {params: { id: string };}) {
   const id = Number(params.id);
 
   const estateDetails = estates.find((es) => es.id === id);

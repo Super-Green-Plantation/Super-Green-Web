@@ -8,14 +8,17 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import z from "zod";
-import { supabase } from "@/lib/supabase/client";
 
 const useSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
+<<<<<<< HEAD
 const LoginPage = () => { // Remove 'async' - client components can't be async
+=======
+const LoginPage = () => {
+>>>>>>> parent of 23cafdd (implement google sign in)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<Record<string, string>>({});
@@ -70,6 +73,7 @@ const LoginPage = () => { // Remove 'async' - client components can't be async
     }
   }
 
+<<<<<<< HEAD
   const signInWithGoogle = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
@@ -83,6 +87,8 @@ const LoginPage = () => { // Remove 'async' - client components can't be async
     }
   };
 
+=======
+>>>>>>> parent of 23cafdd (implement google sign in)
   return (
     <div className="w-full min-h-screen grid grid-cols-1 lg:grid-cols-2">
       {/* Left Side: Visual/Branding */}
@@ -95,9 +101,7 @@ const LoginPage = () => { // Remove 'async' - client components can't be async
           priority
         />
         <div className="relative z-10 p-12 text-white max-w-lg">
-          <h1 className="text-4xl font-bold mb-4">
-            Welcome Back to SuperGreen
-          </h1>
+          <h1 className="text-4xl font-bold mb-4">Welcome Back to SuperGreen</h1>
           <p className="text-lg text-green-50 mb-8 font-light leading-relaxed">
             Log in to access your dashboard, manage your supply chain, and stay
             updated with our latest harvests.
@@ -186,9 +190,7 @@ const LoginPage = () => { // Remove 'async' - client components can't be async
                   </button>
 
                   {error.password && (
-                    <p className="text-red-500 text-xs mt-1">
-                      {error.password}
-                    </p>
+                    <p className="text-red-500 text-xs mt-1">{error.password}</p>
                   )}
                 </div>
               </div>
@@ -240,10 +242,7 @@ const LoginPage = () => { // Remove 'async' - client components can't be async
             </div>
 
             <div className="grid grid-cols-1 gap-3">
-              <button
-                onClick={signInWithGoogle}
-                className="flex items-center justify-center gap-3 py-3.5 border border-gray-200 rounded-2xl hover:bg-gray-50 transition-all text-sm font-semibold text-gray-700"
-              >
+              <button className="flex items-center justify-center gap-3 py-3.5 border border-gray-200 rounded-2xl hover:bg-gray-50 transition-all text-sm font-semibold text-gray-700">
                 <img src="/google.jpg" alt="Google" className="w-5 h-5" />
                 Sign in with Google
               </button>
