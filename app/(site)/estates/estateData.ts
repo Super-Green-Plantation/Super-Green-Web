@@ -30,7 +30,7 @@ export const estates: Estate[] = [
     },
     description: "Our estates are strategically located across the country, each managed with sustainable practices and modern agricultural methods. Explore our estate lands and learn how we grow quality from the ground up.",
     galleryImages: [
-      "/hero.png", // Replace with your actual paths
+      "https://www.pexels.com/photo/green-plantation-field-with-trees-near-mountain-5672693/", // Replace with your actual paths
     ],
     mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1179.535968081805!2d80.22767999926535!3d6.067137348533814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2slk!4v1765945041682!5m2!1sen!2slk",
     contactEmail: "galle.officer@supergreen.com",
