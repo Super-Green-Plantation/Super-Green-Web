@@ -29,7 +29,7 @@ const AboutPage = () => {
       {/* 1. Hero Section - Matches Estate Hero Structure */}
       <section className="relative w-full text-center min-h-[40vh] flex justify-center items-center overflow-hidden">
         <Image
-          src="/hero.png"
+          src="https://www.joshuayetman.com/blog/2016/11/16/nutmeg-mace"
           alt="Lush agricultural landscape"
           fill
           className="object-cover"
