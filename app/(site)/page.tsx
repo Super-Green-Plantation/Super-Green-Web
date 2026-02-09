@@ -9,6 +9,10 @@ const page = () => {
       <HeroSection />
       <Estates />
       <Investment />
+<<<<<<< Updated upstream
+=======
+      <HomePlanCards  />
+>>>>>>> Stashed changes
       <Loan />
     </div>
   );
