@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Toaster } from "sonner";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import { GlobalProvider } from "@/components/providers/GlobalProvider";
 import GlobalLoading from "@/components/GlobalLoading";
@@ -11,9 +11,21 @@ import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Super Green Plantation",
-  description: "Super Green Plantation - Your Trusted Partner in Sustainable Agriculture",
+  description:
+    "Super Green Plantation - Your Trusted Partner in Sustainable Agriculture",
   icons: {
     icon: "/favicon.png",
+  },
+  openGraph: {
+    title: "Super Green Plantation",
+    description: "Super Green Plantation - Your Trusted Partner in Sustainable Agriculture",
+    url: "https://super-green-web.vercel.app",
+    siteName: "Super Green Plantation",
+    
+    type: "website",
+  },
+  alternates: {
+    canonical: "https://supergreen.com",
   },
 };
 
@@ -32,12 +44,9 @@ export default function RootLayout({
             <RouteLoader />
           </Suspense>
           {children}
-          <Analytics/>
+          <Analytics />
           <Toaster position="top-center" richColors />
-          <FloatingWhatsApp
-              phone="94768059312"
-              message="Hi! I need help!."
-            />
+          <FloatingWhatsApp phone="94768059312" message="Hi! I need help!." />
         </GlobalProvider>
       </body>
     </html>

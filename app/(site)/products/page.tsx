@@ -105,7 +105,7 @@ const InvestmentPlans = () => {
                 href={`/products/${plan.id}`}
                 className="
                   block w-full py-3 rounded-full text-center text-white font-bold 
-                  bg-gradient-to-r from-green-600 to-green-800 
+                  bg-linear-to-r from-green-600 to-green-800 
                   hover:from-green-500 hover:to-green-700 
                   transition-all duration-300 transform hover:-translate-y-1
                   shadow-md hover:shadow-lg mt-auto

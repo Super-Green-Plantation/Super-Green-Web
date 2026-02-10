@@ -125,10 +125,8 @@ const Investment = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {investmentPlans.map((plan, index) => (
             // Card Container
-            <Link 
-              href={plan.href}
-              key={index} 
-              className="investment-card p-6 bg-gray-50 border border-gray-200 shadow-xl rounded-2xl flex flex-col transition-all duration-300 hover:shadow-2xl hover:border-green-600 hover:-translate-y-2 group cursor-pointer"
+            <div
+              className="investment-card p-6 bg-gray-50 border border-gray-200 shadow-xl rounded-2xl flex flex-col transition-all duration-300 hover:shadow-2xl hover:border-green-600 hover:-translate-y-2"
             >
               <div className="flex justify-between items-start mb-3">
                 
@@ -152,7 +150,7 @@ const Investment = () => {
               <p className="text-sm text-gray-700 mt-2 mb-6 grow">
                 {plan.description}
               </p>
-            </Link>
+            </div>
           ))}
         </div>
 
