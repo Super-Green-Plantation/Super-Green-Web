@@ -1,3 +1,5 @@
+"use client"
+
 import Estates from "./components/Estates";
 import HeroSection from "./components/HeroSection";
 import Investment from "./components/Investment";

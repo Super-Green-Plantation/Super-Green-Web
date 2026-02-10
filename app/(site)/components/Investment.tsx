@@ -1,8 +1,59 @@
 "use client";
 
 import Link from "next/link";
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Investment = () => {
+    const container = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+        // Ensure elements exist before animating
+        const header = container.current?.querySelector('.investment-header');
+        
+        // Header Reveal
+        if (header) {
+            gsap.fromTo(header, 
+                { y: 30, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    scrollTrigger: {
+                        trigger: header,
+                        start: "top 90%",
+                        toggleActions: "play none none none", // Only play once, don't reverse
+                    }
+                }
+            );
+        }
+
+        // Cards Batch Reveal
+        // This ensures each card animates when it actually enters the viewport
+        ScrollTrigger.batch(".investment-card", {
+            onEnter: (batch) => {
+                gsap.fromTo(batch, 
+                    { y: 60, opacity: 0 }, 
+                    { 
+                        y: 0, 
+                        opacity: 1, 
+                        stagger: 0.15, 
+                        duration: 1.2,
+                        ease: "expo.out",
+                        clearProps: "all"
+                    }
+                );
+            },
+            start: "top 85%",
+            once: true 
+        });
+
+    }, { scope: container });
+
   // 1. RESTRUCTURED DATA ARRAY
   const investmentPlans = [
     {
@@ -56,12 +107,12 @@ const Investment = () => {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-white flex flex-col items-center">
+    <section ref={container} className="py-16 md:py-24 bg-white flex flex-col items-center">
       {/* Container matches Hero Section alignment (max-w-6xl) */}
       <div className="w-[90%] max-w-6xl mx-auto px-0 md:px-0"> 
         
         {/* Section Title */}
-        <div className="mb-12 text-center md:text-left">
+        <div className="mb-12 text-center md:text-left investment-header">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight mb-2">
             Investment Plans
           </h2>
@@ -74,15 +125,16 @@ const Investment = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {investmentPlans.map((plan, index) => (
             // Card Container
-            <div 
+            <Link 
+              href={plan.href}
               key={index} 
-              className="p-6 bg-gray-50 border border-gray-200 shadow-xl rounded-2xl flex flex-col transition-all duration-300 hover:shadow-2xl hover:border-green-600"
+              className="investment-card p-6 bg-gray-50 border border-gray-200 shadow-xl rounded-2xl flex flex-col transition-all duration-300 hover:shadow-2xl hover:border-green-600 hover:-translate-y-2 group cursor-pointer"
             >
               <div className="flex justify-between items-start mb-3">
                 
                 {/* Plan Name & Duration */}
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900 leading-snug">
+                  <h3 className="text-xl font-semibold text-gray-900 leading-snug group-hover:text-green-700 transition-colors">
                     {plan.name}
                   </h3>
                   <p className="text-sm text-gray-500 mt-1">{plan.duration}</p>
@@ -100,20 +152,18 @@ const Investment = () => {
               <p className="text-sm text-gray-700 mt-2 mb-6 grow">
                 {plan.description}
               </p>
-
-              {/* Contact Link */}
-              <Link
-                href={"/contact"}
-                className="
-                  bg-green-700 py-3 rounded-xl text-center text-white font-semibold 
-                  hover:bg-green-800 transition-colors duration-200 
-                  mt-auto 
-                "
-              >
-                Learn More
-              </Link>
-            </div>
+            </Link>
           ))}
+        </div>
+
+        {/* Bottom CTA Button */}
+        <div className="mt-12 text-center">
+            <Link 
+                href="/contact" 
+                className="inline-flex items-center justify-center px-10 py-4 rounded-full bg-green-600 text-white font-bold text-lg hover:bg-green-700 transition-all shadow-lg hover:shadow-green-500/30 hover:scale-105"
+            >
+                Learn More
+            </Link>
         </div>
       </div>
     </section>

@@ -4,7 +4,7 @@ export const plansData = [
     name: "Marrge Plan",
     duration: "5, 10, or 15 Years", 
     interest: "Up to 24%",  
-    img:"/marge-plan.png",
+    img:"/pl.png",
     description: "A secure long-term savings plan with a 5-year paying term and high maturity returns.",
     payingTerm: "5 Years",
     minPremium: "15,000.00",
@@ -35,7 +35,7 @@ export const plansData = [
     name: "Super Green Child Plan", // [cite: 20]
     duration: "6, 9, or 12 Years", // [cite: 22]
     interest: "Up to 24%", // [cite: 37]
-    img:"/child plan.png",
+    img:"/plant.png",
     description: "Secure your child's future with a short 3-year paying term and flexible maturity options.", // [cite: 23]
     payingTerm: "3 Years", // [cite: 23]
     minPremium: "15,000.00", // [cite: 24]
@@ -64,7 +64,7 @@ export const plansData = [
     name: "Ran Aswanu Nidanaya", // [cite: 50]
     duration: "Retire at 35 - 55", // [cite: 55]
     interest: "Lifetime Pension", // [cite: 75]
-    img:"/ran aswanu.png",
+    img:"/inquiry.png",
     description: "Retirement planning for ages 18-50. Receive 10% of maturity amount monthly.", // [cite: 53, 75]
     payingTerm: "1 - 10 Years", // [cite: 54]
     minPremium: "15,000.00", // [cite: 56]

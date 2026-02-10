@@ -121,3 +121,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  /* Custom Scrollbar for Premium Feel */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-green-700/50 hover:bg-green-700/80 rounded-full transition-colors;
+  }
+}
