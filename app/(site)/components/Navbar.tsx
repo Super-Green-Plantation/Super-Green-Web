@@ -1,6 +1,5 @@
 "use client";
 
-import { getUserdata } from "@/lib/userData";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -36,16 +35,7 @@ export default function NavBar() {
 
     if (!token) return; // Exit early if no token
 
-    const user: User | null = getUserdata(token);
-    if (user) {
-      setLogged(true);
-      console.log(user.firstName);
-      setFirstName(user.firstName);
-    }
-
-    if (user !== null) {
-      setLogged(true);
-    }
+   
   }, []);
 
   const toggleMenu = () => {
@@ -87,52 +77,6 @@ export default function NavBar() {
             ))}
           </div>
 
-          {/* Desktop Action Buttons */}
-          {logged ? (
-            <div className="hidden md:flex relative">
-              {/* Avatar Button */}
-              <button
-                onClick={() => setProfileOpen((prev) => !prev)}
-                className="w-10 h-10 rounded-full bg-green-600 text-white font-bold flex items-center justify-center hover:bg-green-700 transition"
-              >
-                {first_letter}
-              </button>
-
-              {/* Dropdown */}
-              {profileOpen && (
-                <div className="absolute right-0 mt-12 w-44 bg-white rounded-lg shadow-xl overflow-hidden z-50">
-                  <Link
-                    href="/dashboard"
-                    className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100"
-                    onClick={() => setProfileOpen(false)}
-                  >
-                    Dashboard
-                  </Link>
-
-                  <button
-                    onClick={() => {
-                      localStorage.removeItem("token");
-                      setLogged(false);
-                      setFirstName(null);
-                      setProfileOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-gray-100"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="hidden md:flex space-x-3">
-              <Link
-                href="/auth/login"
-                className="py-2 px-4 rounded-lg text-white font-bold text-sm bg-green-600 hover:bg-green-700 shadow-md shadow-black/40"
-              >
-                Login
-              </Link>
-            </div>
-          )}
 
           {/* Mobile Toggle Button */}
           <button
@@ -162,29 +106,7 @@ export default function NavBar() {
                 {item.name}
               </Link>
             ))}
-
-            {/* Mobile Action Buttons */}
-
-            {/* Mobile Action Buttons */}
-            <div className="w-full pt-3 border-t border-green-700/50 flex flex-col space-y-3">
-              {logged ? (
-                <Link
-                  href="/dashboard"
-                  className="w-full text-center py-2 rounded-lg text-white font-bold bg-green-600 hover:bg-green-700 shadow-md"
-                  onClick={toggleMenu}
-                >
-                  Dashboard
-                </Link>
-              ) : (
-                <Link
-                  href="/auth/register"
-                  className="w-full text-center py-2 rounded-lg text-white font-bold bg-green-600 hover:bg-green-700 shadow-md"
-                  onClick={toggleMenu}
-                >
-                  Register
-                </Link>
-              )}
-            </div>
+            
           </div>
         </div>
       )}

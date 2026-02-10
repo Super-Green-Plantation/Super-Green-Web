@@ -10,8 +10,9 @@ const page = () => {
       <HeroSection />
       <Estates />
       <Investment />
-      <InvestmentPlans  />
+      <InvestmentPlans />
       <Loan />
+      
     </div>
   );
 };

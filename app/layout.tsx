@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Toaster } from "sonner";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next"
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 
 export const metadata: Metadata = {
   title: "Super Green Plantation",
@@ -21,6 +22,10 @@ export default function RootLayout({
       <body>{children}
       <Analytics/>
       <Toaster />
+      <FloatingWhatsApp
+          phone="94768059312"
+          message="Hi! I need help!."
+        />
       </body>
     </html>
   );
