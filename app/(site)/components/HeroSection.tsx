@@ -153,19 +153,7 @@ export default function HeroSection() {
               <Mail size={20} /> <span>Contact Us</span> 
             </Link>
 
-            {/* Get Started Button (Prominent Green) */}
-            <Link 
-              href="/auth/register" 
-              className="
-                flex items-center justify-center gap-2 py-3 px-8 rounded-full 
-                bg-gradient-to-r from-green-500 to-green-700 text-white font-bold 
-                hover:from-green-400 hover:to-green-600 transition-all duration-300 
-                shadow-lg hover:shadow-green-500/30 transform hover:-translate-y-1
-              "
-            >
-              Get Started
-               <ChevronRight size={20} />
-            </Link>
+           
           </div>
         </div>
 
