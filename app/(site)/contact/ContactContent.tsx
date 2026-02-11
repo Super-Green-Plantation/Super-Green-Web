@@ -114,10 +114,10 @@ const ContactContent = () => {
             <h3 className="text-xl font-bold text-gray-900 mb-1">Phone</h3>
             <p className="text-gray-500 mb-4 text-sm uppercase tracking-wide">Monday - Friday</p>
             <a
-              href="tel:0911111111"
+              href="tel:+94768059312"
               className="text-2xl font-bold text-green-700 hover:text-green-800"
             >
-              091 111 1111
+              +94 76 805 9312
             </a>
           </div>
 
@@ -129,10 +129,10 @@ const ContactContent = () => {
             <h3 className="text-xl font-bold text-gray-900 mb-1">Email</h3>
             <p className="text-gray-500 mb-4 text-sm uppercase tracking-wide">Direct Inquiry</p>
             <a
-              href="mailto:head@supergreen.com"
+              href="mailto:supergreenplantationsgp@gmail.com"
               className="text-xl font-bold text-green-700 hover:text-green-800 break-all"
             >
-              head@supergreen.com
+              supergreenplantationsgp@gmail.com
             </a>
           </div>
 
@@ -147,7 +147,7 @@ const ContactContent = () => {
               href="#"
               className="text-2xl font-bold text-green-700 hover:text-green-800"
             >
-              091 111 1111
+              +94 76 805 9312
             </a>
           </div>
         </div>
@@ -167,17 +167,17 @@ const ContactContent = () => {
               <h3 className="text-3xl font-bold mb-4">Office Hours</h3>
               <div className="space-y-2 opacity-90">
                 <p className="text-xl font-medium">
-                  Mon - Fri: <span className="font-light">9:00am - 5:00pm</span>
+                  Mon - Fri: <span className="font-light">8:30am - 5:00pm</span>
                 </p>
-                <p className="text-xl font-medium">
+                {/* <p className="text-xl font-medium">
                   Saturday: <span className="font-light">9:00am - 12:00pm</span>
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
 
           <a
-            href="#"
+            href="https://maps.app.goo.gl/49pobXfcxtLexEN86"
             target="blank"
             className="relative z-10 bg-white text-green-900 px-10 py-5 rounded-full font-bold hover:bg-green-50 hover:scale-105 transition-all shadow-xl"
           >

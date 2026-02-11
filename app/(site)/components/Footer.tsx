@@ -86,14 +86,10 @@ export default function Footer() {
             <ul className="text-sm space-y-3 text-gray-400">
               <li className="flex justify-between max-w-[200px]">
                 <span>Mon - Fri:</span> 
-                <span className="font-medium text-gray-200">9:00am - 5:00pm</span>
+                <span className="font-medium text-gray-200">8:30am - 5:00pm</span>
               </li>
               <li className="flex justify-between max-w-[200px]">
-                <span>Saturday:</span> 
-                <span className="font-medium text-gray-200">9:00am - 12:00pm</span>
-              </li>
-              <li className="flex justify-between max-w-[200px]">
-                <span>Sunday:</span> 
+                <span>Sat - Sun:</span> 
                 <span className="font-medium text-red-400">Closed</span>
               </li>
             </ul>
@@ -109,11 +105,11 @@ export default function Footer() {
               </p>
               <p className="flex items-center space-x-3 group cursor-pointer hover:text-green-400 transition-colors">
                  <span className="block w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                 <span>+94 77 123 4567</span>
+                 <span>+94 76 805 9312</span>
               </p>
               <p className="flex items-center space-x-3 group cursor-pointer hover:text-green-400 transition-colors">
                  <span className="block w-1.5 h-1.5 rounded-full bg-green-500"></span>
-                 <span>info@supergreen.lk</span>
+                 <span>supergreenplantationsgp@gmail.com</span>
               </p>
             </address>
           </div>
@@ -124,10 +120,10 @@ export default function Footer() {
           <p>
             &copy; {new Date().getFullYear()} Super Green Plantation. All rights reserved.
           </p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
+          {/* <div className="flex space-x-6 mt-4 md:mt-0">
              <Link href="/privacy" className="hover:text-green-400 transition-colors">Privacy Policy</Link>
              <Link href="/terms" className="hover:text-green-400 transition-colors">Terms of Service</Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>
