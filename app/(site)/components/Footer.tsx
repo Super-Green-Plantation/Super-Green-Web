@@ -5,17 +5,13 @@ import Link from 'next/link';
 const LOGO_PATH = '/logo.png';
 
 const quickLinks = [
-  { name: 'Customer support', href: '/contact' },
   { name: 'Investment inquiries', href: '/contact' },
-  { name: 'Micro Loan', href: '/micro-loans' },
   { name: 'Estates', href: '/estates' },
 ];
 
 const socialLinks = [
   { icon: Facebook, href: 'https://web.facebook.com/profile.php?id=61585115335181', name: 'Facebook' },
-  { icon: Instagram, href: 'https://instagram.com', name: 'Instagram' },
-  { icon: Linkedin, href: 'https://linkedin.com', name: 'LinkedIn' },
-  { icon: Twitter, href: 'https://twitter.com', name: 'Twitter' },
+  { icon: Instagram, href: 'https://www.instagram.com/super_green_plantation/', name: 'Instagram' },
 ];
 
 export default function Footer() {
