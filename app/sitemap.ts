@@ -3,7 +3,7 @@ import { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://super-green-web.vercel.app",
+      url: "https://supergreenplantation.lk",
       lastModified: new Date(),
     },
   ];

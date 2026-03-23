@@ -14,14 +14,14 @@ export const metadata: Metadata = {
   description:
     "Super Green Plantation - Your Trusted Partner in Sustainable Agriculture",
   icons: {
-    icon: "/favicon.png",
+    icon: [{ url: "/favicon.png", type: "image/png" }],
   },
   openGraph: {
     title: "Super Green Plantation",
     description: "Super Green Plantation - Your Trusted Partner in Sustainable Agriculture",
     url: "https://supergreenplantation.lk",
     siteName: "Super Green Plantation",
-    
+
     type: "website",
   },
   alternates: {
