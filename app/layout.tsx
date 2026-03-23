@@ -19,13 +19,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Super Green Plantation",
     description: "Super Green Plantation - Your Trusted Partner in Sustainable Agriculture",
-    url: "https://super-green-web.vercel.app",
+    url: "https://supergreenplantation.lk",
     siteName: "Super Green Plantation",
     
     type: "website",
   },
   alternates: {
-    canonical: "https://supergreen.com",
+    canonical: "https://supergreenplantation.lk",
   },
 };
 
