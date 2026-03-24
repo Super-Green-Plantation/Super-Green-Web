@@ -18,29 +18,29 @@ const EstatesContent = () => {
   const estate = [
     {
       id: 1,
-      img: "/sample-1.jpg",
-      location: "Galle",
+      img: "/welimada.JPG",
+      location: "Welimada",
     },
-    {
-      id: 2,
-      img: "/sample-2.png",
-      location: "Matara",
-    },
-    {
-      id: 3,
-      img: "/sample-3.png",
-      location: "Hambantota",
-    },
-    {
-      id: 4,
-      img: "/sample-4.png",
-      location: "Rathnapura",
-    },
-    {
-      id: 5,
-      img: "/sample-5.jpg",
-      location: "Thanamalwila",
-    },
+    // {
+    //   id: 2,
+    //   img: "/sample-2.png",
+    //   location: "Matara",
+    // },
+    // {
+    //   id: 3,
+    //   img: "/sample-3.png",
+    //   location: "Hambantota",
+    // },
+    // {
+    //   id: 4,
+    //   img: "/sample-4.png",
+    //   location: "Rathnapura",
+    // },
+    // {
+    //   id: 5,
+    //   img: "/sample-5.jpg",
+    //   location: "Thanamalwila",
+    // },
   ];
 
   useGSAP(() => {
