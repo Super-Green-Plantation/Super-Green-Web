@@ -114,10 +114,10 @@ const ContactContent = () => {
             <h3 className="text-xl font-bold text-gray-900 mb-1">Phone</h3>
             <p className="text-gray-500 mb-4 text-sm uppercase tracking-wide">Monday - Friday</p>
             <a
-              href="tel:+94768059312"
+              href="tel:+912240814"
               className="text-2xl font-bold text-green-700 hover:text-green-800"
             >
-              +94 76 805 9312
+              091 224 0814
             </a>
           </div>
 
