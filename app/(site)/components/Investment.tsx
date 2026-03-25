@@ -59,7 +59,6 @@ const Investment = () => {
     {
       name: "Super Experiment Plan",
       duration: "6 Months",
-      interest: "12.5%",
       description:
         "A short-term starter plan designed for new investors who want quick, reliable returns with minimal commitment.",
       href: "/contact-experiment", // Added unique link for the first plan
@@ -67,7 +66,6 @@ const Investment = () => {
     {
       name: "Super Plus Plan",
       duration: "1 Year",
-      interest: "32%",
       description:
         "A balanced one-year investment offering attractive annual growth for steady, confident investors.",
       href: "/contact-plus",
@@ -75,7 +73,6 @@ const Investment = () => {
     {
       name: "Super Gold Plan",
       duration: "1.5 Year",
-      interest: "34%",
       description:
         "A medium-term plan that delivers stronger returns, ideal for investors building long-term financial stability.",
       href: "/contact-gold",
@@ -83,7 +80,6 @@ const Investment = () => {
     {
       name: "Super Gold Plus Plan",
       duration: "2 Years",
-      interest: "36%",
       description:
         "A powerful two-year investment option crafted for those seeking higher returns with secure performance.",
       href: "/contact-gold-plus",
@@ -91,7 +87,6 @@ const Investment = () => {
     {
       name: "Super Diamond Plan",
       duration: "3 Years",
-      interest: "38%",
       description:
         "A premium plan offering long-term value and exceptional growth for committed investors.",
       href: "/contact-diamond",
@@ -99,7 +94,6 @@ const Investment = () => {
     {
       name: "Super Diamond Plus Plan",
       duration: "5 Years",
-      interest: "40%",
       description:
         "Our highest-earning investment plan, designed for long-term wealth building and maximum returns.",
       href: "/contact-diamond-plus",
@@ -138,12 +132,7 @@ const Investment = () => {
                   <p className="text-sm text-gray-500 mt-1">{plan.duration}</p>
                 </div>
 
-                {/* Interest Rate (in a different color) */}
-                <div className="shrink-0 ml-4">
-                  <span className="text-2xl font-extrabold text-green-600"> 
-                    {plan.interest}
-                  </span>
-                </div>
+               
               </div>
 
               {/* Description */}

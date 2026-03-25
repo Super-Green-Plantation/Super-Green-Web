@@ -3,7 +3,7 @@ export const plansData = [
     id: "1",
     name: "Marrge Plan",
     duration: "5, 10, or 15 Years", 
-    interest: "Up to 24%",  
+    // interest: "Up to 24%",  
     img:"/pl.png",
     description: "A secure long-term savings plan with a 5-year paying term and high maturity returns.",
     payingTerm: "5 Years",
@@ -34,7 +34,7 @@ export const plansData = [
     id: "2",
     name: "Super Green Child Plan", // [cite: 20]
     duration: "6, 9, or 12 Years", // [cite: 22]
-    interest: "Up to 24%", // [cite: 37]
+    // interest: "Up to 24%", // [cite: 37]
     img:"/plant.png",
     description: "Secure your child's future with a short 3-year paying term and flexible maturity options.", // [cite: 23]
     payingTerm: "3 Years", // [cite: 23]
