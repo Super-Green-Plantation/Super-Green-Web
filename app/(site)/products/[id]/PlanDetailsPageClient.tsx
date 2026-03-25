@@ -25,7 +25,7 @@ interface Plan {
   description: string;
   img?: string;
   duration: string;
-  interest: string;
+  // interest: string;
   payingTerm: string;
   minPremium: string;
   premiums?: { type: string; amount: string; commission: string }[];
@@ -139,11 +139,11 @@ export default function PlanDetailsPage({ plan }: { plan: Plan }) {
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             <DetailBox label="Duration" value={plan.duration} icon={Calendar} />
-            <DetailBox
+            {/* <DetailBox
               label="Interest Rate"
               value={plan.interest}
               icon={TrendingUp}
-            />
+            /> */}
             <DetailBox
               label="Paying Term"
               value={plan.payingTerm}
