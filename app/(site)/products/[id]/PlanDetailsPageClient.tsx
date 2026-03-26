@@ -259,7 +259,7 @@ export default function PlanDetailsPage({ plan }: { plan: Plan }) {
       {/* 5. CTA SECTION */}
       <section className="reveal-section relative py-24 overflow-hidden">
         <div className="absolute inset-0 bg-green-900 z-0">
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-green-300 via-transparent to-transparent"></div>
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-green-300 via-transparent to-transparent"></div>
         </div>
         <div className="relative z-10 container mx-auto px-4 text-center max-w-4xl">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight">

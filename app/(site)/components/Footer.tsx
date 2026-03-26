@@ -109,6 +109,10 @@ export default function Footer() {
               </p>
               <p className="flex items-center space-x-3 group cursor-pointer hover:text-green-400 transition-colors">
                  <span className="block w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                 <span>+94 76 805 9312</span>
+              </p>
+              <p className="flex items-center space-x-3 group cursor-pointer hover:text-green-400 transition-colors">
+                 <span className="block w-1.5 h-1.5 rounded-full bg-green-500"></span>
                  <span>supergreenplantationsgp@gmail.com</span>
               </p>
             </address>
