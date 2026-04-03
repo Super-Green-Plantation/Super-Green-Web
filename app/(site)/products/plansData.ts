@@ -1,7 +1,7 @@
 export const plansData = [
   {
     id: "1",
-    name: "Marrge Plan",
+    name: "Marriage Plan",
     duration: "5, 10, or 15 Years", 
     // interest: "Up to 24%",  
     img:"/pl.png",
