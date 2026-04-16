@@ -11,7 +11,7 @@ const Loan = () => {
           <div
             className="
               w-full h-100 md:h-96 rounded-2xl p-8 md:p-12
-              bg-[url('/ml bg.png')] bg-cover bg-center bg-no-repeat 
+              bg-[url('/mlbg.png')] bg-cover bg-center bg-no-repeat 
               shadow-2xl flex flex-col justify-center relative overflow-hidden
             "
           >
