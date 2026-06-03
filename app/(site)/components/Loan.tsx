@@ -15,13 +15,13 @@ const Loan = () => {
               shadow-2xl flex flex-col justify-center relative overflow-hidden
             "
           >
-            <Image
+            {/* <Image
               src={IMG}
               alt="plantation fields in Sri Lanka"
               fill
               style={{ objectFit: "cover" }}
               priority
-            />
+            /> */}
             <div className="absolute inset-0 bg-black/40 rounded-2xl"></div>
 
             <div className="py-10 relative z-10 text-white max-w-xl">
