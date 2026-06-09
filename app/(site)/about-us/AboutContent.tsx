@@ -66,12 +66,12 @@ const teamLeaders = [
     company: "Super Green Plantation (Pvt) Ltd\nSuper A+ Micro Credit (Pvt) Ltd",
     image: "kavindi.jpeg",
   },
-  {
-    name: "K.K.C.S. Kumara",
-    role: "General Manager",
-    company: "Super Green Plantation (Pvt) Ltd",
-    image: "kumara.jpeg",
-  },
+  // {
+  //   name: "K.K.C.S. Kumara",
+  //   role: "General Manager",
+  //   company: "Super Green Plantation (Pvt) Ltd",
+  //   image: "kumara.jpeg",
+  // },
   {
     name: "W.A. Sameera Udayanga",
     role: "AGM",
